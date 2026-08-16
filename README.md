@@ -415,31 +415,53 @@ Skills（带 schema 的规程，≠ Tool）：`classify_product` · `extract_hs_
 
 MCP 可选，不是算出矩阵的必要条件。Python 引擎是 pytest 的源；Vercel 上跑 TypeScript 端口。
 
-## Current MVP
+## Expected Capability vs Later Outlook
 
-只写当前代码和线上产品里**已经存在**的。
+三层分开写。**预期能力**是产品定义（引擎要长期回答什么）。**现在**只写代码和线上已有的。**后期**是展望，不是已上线。
 
-已实现：
+### 预期能力（产品合同）
+
+工厂目录进来之后，系统应能对每个 `SKU × 国家 × 平台` 给出可验证的市场准入状态，而不是一篇法规摘要。
+
+| 预期能力 | 含义 |
+|---|---|
+| Product Digital Twin | 目录行变成可匹配的商品属性（品类、产地、证书、电池/无线、成分等），不靠 SKU 名字写死 |
+| Cross-market screening | 同一目录打到多个目的国 |
+| Cross-platform overlay | 国家法之上再叠平台规则；合法入境 ≠ 每个平台都能上架 |
+| Evidence-backed state | `PASS / WARNING / BLOCKED / UNCERTAIN / EXPERT_REVIEW_REQUIRED`，绑定官方 URL、条款、哈希 |
+| Portfolio impact | 法规一变，只报告被打中的 SKU，不推送新闻 |
+| Remediation → re-check | 缺什么、下一步做什么、补证后再跑一遍 |
+| Honest coverage | 只主张已编码、有来源的子集；空匹配 = UNCERTAIN |
+
+这十问（§01）就是预期能力清单。规模可以以后变大，合同不变。
+
+### 现在能演示的（Current MVP）
 
 - 线上台账：https://cansell-kappa.vercel.app
-- CSV 目录上传、模板下载、恢复演示目录、改 SKU 名再评估（属性不变则状态不变）
-- 4 个演示 SKU 的 Product Digital Twin（属性：品类、产地、证书、电池/无线/市电、成分等）
-- 编码法规子集：EU / US / ID，消费电子 + 一条化妆品对照；现行法规与平台规则见 `data/regulations/seed.json`、`data/platforms/seed.json`
-- 24 格市场准入矩阵（4 SKU × 3 国 × 2 平台）
-- 条款匹配、官方 URL / 条款 / 摘录 / 哈希、缺失项、整改清单
-- 验证金字塔；空匹配 = UNCERTAIN，禁止沉默 PASS
-- 模拟法规变更：印尼灯具 SNI 版本事件 → 只打中 LED
-- 补证后再评估（例如给音箱附上 CE-RED / EU-RP / FCC / DJID）
-- Python 引擎 + pytest；TypeScript 端口与 Python 状态对拍
+- CSV 上传 / 模板 / 恢复演示目录 / 改 SKU 名再评估（属性不变则状态不变）
+- 4 个广东演示 SKU 的孪生；24 格矩阵（EU · US · ID × Alibaba.com · Amazon）
+- 编码法规子集（消费电子 + 一条化妆品对照）；种子在 `data/regulations/seed.json`、`data/platforms/seed.json`
+- 印章卷宗：Why、条款、官方 URL、摘录、哈希、缺失项、整改
+- 验证金字塔；禁止沉默 PASS
+- 模拟法规变更：印尼灯具 SNI 版本事件 → 4 个 SKU 里只有 LED 被打中
+- 补证后再评估（如 `CE-RED,EU-RP,FCC,DJID`）
+- Python pytest 为源；TypeScript 端口与状态对拍
 
-未实现（见 Roadmap，不要当成已上线）：
+现在**没有**：TikTok / Temu / SHEIN / Shopify 编码、ERP/PIM、全库爬虫、付费 API、专家市场、200 国、把 PASS 当放行。
 
-- TikTok Shop / Temu / SHEIN / Shopify 规则编码
-- ERP / PIM 连接
-- 生产级全库法规 diff 爬虫
-- 付费 API、专家市场、悟空 Skill
-- 200 国覆盖
-- 把 PASS 当成海关或平台放行
+### 后期展望（Roadmap）
+
+尚未实现。按远近排列，都可砍，不可写成当前功能。
+
+| 阶段 | 展望 | 明确不做 |
+|---|---|---|
+| 近 | 更多官方 URL 检索与哈希；同一电子垂直加厚条款；设计伙伴脱敏目录；专家升级入口 | 假全球库 |
+| 中 | 平台适配 TikTok Shop、Temu、SHEIN、Shopify；生产级法规 diff 监测；ERP/PIM；对外 API | 逆向卖家后台 |
+| 远 | 认证伙伴网络（SGS/TÜV 等执行层）；Alibaba 悟空 Skill（若有可用 API）；Free/Pro/Enterprise 真收费 | 法律 Chatbot；PASS = 海关/平台放行 |
+
+商业档位（Free / Pro / Enterprise / API / expert marketplace）仍是**假设**，见 §12，不是已售套餐。
+
+Illustrative 规模（不是 benchmark）：3,000 SKU 目录 → 变更后只列出受影响 SKU。当前演示是 4 个 SKU。
 
 ## 08 产品怎么用
 
@@ -517,20 +539,7 @@ Alibaba 已解决信任标和部分证书上传；仍把目的国法的目录级
 
 未计划假的 200 国覆盖。法规摘录仅用于识别，全文以官方 URL 为准。
 
-## Roadmap
-
-尚未实现。不要把本表读成当前功能。
-
-- 更多法域与官方抓取 / 检索日哈希
-- 平台适配：TikTok Shop、Temu、SHEIN、Shopify
-- 生产级法规 diff 监测（超出当前演示对象）
-- ERP / PIM 集成
-- 认证伙伴网络 / 专家升级 UX
-- Alibaba 悟空 Skill（若开放可用 API）
-- 对外 API
-- 真实出口商脱敏目录（设计伙伴）
-
-明确不做：假的全球覆盖、法律 Chatbot、把 PASS 写成放行章。
+近 / 中 / 远展望见 **Expected Capability vs Later Outlook**，不要把那一节的后期项读成已上线。
 
 ---
 

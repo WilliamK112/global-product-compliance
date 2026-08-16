@@ -1,0 +1,21 @@
+# Byte-compiled
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.venv/
+venv/
+
+# Node
+apps/web/node_modules/
+apps/web/.next/
+
+# Env / OS
+.env
+.DS_Store
+*.db
+storage/*.sqlite
+
+# IDE
+.idea/
+.vscode/

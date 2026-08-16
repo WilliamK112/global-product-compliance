@@ -1,0 +1,11 @@
+name: generate_remediation_plan
+version: 0.1.0
+description: Turn unmet requirements into an ordered action list with re-check.
+input_schema: {type: object, required: [market_access_state]}
+output_schema: {type: object, required: [plan]}
+permissions: [read_state]
+data_sources: [assessment]
+verification: actions_bound_to_findings
+failure_modes: [missing_lab_capacity]
+fallback: expert marketplace referral
+audit: true

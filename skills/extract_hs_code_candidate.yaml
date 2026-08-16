@@ -1,0 +1,11 @@
+name: extract_hs_code_candidate
+version: 0.1.0
+description: Propose HS code candidates from category and description. Never treat as customs ruling.
+input_schema: {type: object, required: [product_twin]}
+output_schema: {type: object, required: [hs_code_candidates, confidence]}
+permissions: [read_product]
+data_sources: [catalog]
+verification: candidate_only
+failure_modes: [multi_use_product]
+fallback: leave empty and flag EXPERT_REVIEW_REQUIRED
+audit: true

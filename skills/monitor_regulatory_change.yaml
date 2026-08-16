@@ -1,0 +1,11 @@
+name: monitor_regulatory_change
+version: 0.1.0
+description: Re-index a changed official source, diff requirements, and list affected SKUs.
+input_schema: {type: object, required: [change]}
+output_schema: {type: object, required: [change_impact]}
+permissions: [read_graphs, write_monitoring]
+data_sources: [regulation_graph, product_graph]
+verification: versioned_diff
+failure_modes: [source_unavailable]
+fallback: queue for human monitor
+audit: true

@@ -1,0 +1,25 @@
+{
+  "note": "Gold cases for later scoring. The engine tests use the same fixtures; this file is the human-readable set.",
+  "cases": [
+    {"id": 1, "sku_profile": "wireless_no_red", "market": "EU", "expect": "BLOCKED"},
+    {"id": 2, "sku_profile": "wireless_no_fcc", "market": "US", "expect": "BLOCKED"},
+    {"id": 3, "sku_profile": "wireless_no_djid", "market": "ID", "expect": "BLOCKED"},
+    {"id": 4, "sku_profile": "cosmetics_no_bpom", "market": "ID", "expect": "BLOCKED"},
+    {"id": 5, "sku_profile": "cosmetics_no_cpnp", "market": "EU", "expect": "BLOCKED"},
+    {"id": 6, "sku_profile": "cosmetics_no_mocra", "market": "US", "expect": "WARNING"},
+    {"id": 7, "sku_profile": "mains_lighting_ce_lvd_emc", "market": "EU", "expect": "WARNING"},
+    {"id": 8, "sku_profile": "lighting_sni", "market": "ID", "expect": "PASS_OR_WARNING"},
+    {"id": 9, "sku_profile": "unknown_apparel", "market": "EU", "expect": "UNCERTAIN"},
+    {"id": 10, "sku_profile": "origin_cn_no_eu_rp", "market": "EU", "expect": "WARNING"},
+    {"id": 11, "sku_profile": "amazon_eu_no_rp", "platform": "Amazon", "expect": "WARNING"},
+    {"id": 12, "sku_profile": "attribute_clone_renamed", "expect": "SAME_AS_ORIGINAL"},
+    {"id": 13, "sku_profile": "sni_version_change", "expect": "LIGHTING_ONLY"},
+    {"id": 14, "sku_profile": "llm_only_evidence", "expect": "NO_ASSERT"},
+    {"id": 15, "sku_profile": "emc_without_red_still_blocked", "market": "EU", "expect": "BLOCKED"},
+    {"id": 16, "sku_profile": "led_not_wireless_no_fcc_intentional", "market": "US", "expect": "NOT_BLOCKED_FOR_FCC_INTENTIONAL"},
+    {"id": 17, "sku_profile": "serum_not_affected_by_sni_change", "expect": "UNCHANGED"},
+    {"id": 18, "sku_profile": "speaker_not_affected_by_sni_change", "expect": "UNCHANGED"},
+    {"id": 19, "sku_profile": "missing_category", "expect": "UNCERTAIN"},
+    {"id": 20, "sku_profile": "recheck_after_adding_fcc", "expect": "STATUS_IMPROVES"}
+  ]
+}

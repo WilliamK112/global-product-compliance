@@ -1,0 +1,36 @@
+[project]
+name = "cansell"
+version = "0.1.0"
+description = "Product-aware market access engine for Chinese exporters"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+dependencies = [
+  "fastapi>=0.115.0",
+  "uvicorn[standard]>=0.32.0",
+  "pydantic>=2.9.0",
+  "python-multipart>=0.0.12",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.3.0"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+
+[tool.setuptools.packages.find]
+include = [
+  "product_graph*",
+  "regulation_graph*",
+  "market_graph*",
+  "platform_graph*",
+  "verification*",
+  "monitoring*",
+  "evidence*",
+  "storage*",
+  "agents*",
+  "skills*",
+  "tools*",
+  "apps*",
+]

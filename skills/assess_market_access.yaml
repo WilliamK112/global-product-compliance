@@ -1,0 +1,11 @@
+name: assess_market_access
+version: 0.1.0
+description: Compute PASS/WARNING/BLOCKED/UNCERTAIN/EXPERT_REVIEW_REQUIRED for Product × Country × Platform.
+input_schema: {type: object, required: [product_twin, country, platform]}
+output_schema: {type: object, required: [market_access_state]}
+permissions: [read_graphs]
+data_sources: [product_graph, regulation_graph, platform_graph]
+verification: no_silent_pass
+failure_modes: [empty_rule_set]
+fallback: UNCERTAIN
+audit: true

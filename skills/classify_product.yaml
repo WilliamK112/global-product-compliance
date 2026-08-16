@@ -1,0 +1,15 @@
+name: classify_product
+version: 0.1.0
+description: Map catalog fields to a Product Digital Twin. Image clues are candidates only.
+input_schema:
+  type: object
+  required: [sku, name, category]
+output_schema:
+  type: object
+  required: [product_twin]
+permissions: [read_catalog]
+data_sources: [merchant_csv]
+verification: structured_fields_only
+failure_modes: [missing_category, ambiguous_wireless]
+fallback: mark UNCERTAIN and request confirmation
+audit: true

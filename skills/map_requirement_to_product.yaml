@@ -1,0 +1,11 @@
+name: map_requirement_to_product
+version: 0.1.0
+description: Evaluate product-scope predicates against a Product Digital Twin.
+input_schema: {type: object, required: [product_twin, requirement]}
+output_schema: {type: object, required: [applies]}
+permissions: [read_product, read_requirement]
+data_sources: [product_graph, regulation_graph]
+verification: deterministic_predicate
+failure_modes: [missing_attribute]
+fallback: UNCERTAIN
+audit: true

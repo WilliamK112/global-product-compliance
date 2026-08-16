@@ -1,0 +1,11 @@
+name: validate_evidence
+version: 0.1.0
+description: Check evidence against the verification pyramid. LLM-only evidence cannot assert PASS or BLOCKED.
+input_schema: {type: object, required: [claim, evidence]}
+output_schema: {type: object, required: [valid, quality]}
+permissions: [read_evidence]
+data_sources: [evidence]
+verification: pyramid
+failure_modes: [stale_hash, unofficial_blog]
+fallback: drop evidence
+audit: true

@@ -1,0 +1,105 @@
+{
+  "coverage_note": "Platform rules overlay national law. They do not replace it. Sources are official seller help or platform policy pages retrieved 2026-08-16.",
+  "platforms": {
+    "Alibaba.com": {
+      "requirements": [
+        {
+          "requirement_id": "alibaba-destination-law",
+          "regulation_id": "platform-alibaba-GLOBAL",
+          "title": "Alibaba.com sellers remain responsible for destination-country product legality",
+          "requirement_type": "platform_rule",
+          "product_scope": {
+            "all": [
+              {"attr": "category", "in": ["consumer_electronics", "electronics", "audio", "lighting", "cosmetics"]}
+            ]
+          },
+          "missing_if_unmet": "Destination-market certificates uploaded to the listing / certification center",
+          "default_status_if_unmet": "WARNING",
+          "satisfied_by": ["ALIBABA-CERT-CENTER", "CE", "CE-RED", "CE-LVD", "FCC", "BPOM", "CPNP"],
+          "actions": [
+            "Upload applicable certificates in Alibaba certification center",
+            "Do not list products that cannot legally enter the buyer destination"
+          ],
+          "evidence": [
+            {
+              "authority": "Alibaba.com",
+              "document": "Alibaba.com seller compliance / export regulations guidance",
+              "article": "Seller responsibility for destination compliance",
+              "source_url": "https://seller.alibaba.com/blogs/2026/global/b2b-ecommerce/alibaba-com-compliance-guide-2026-export-regulations",
+              "retrieved_at": "2026-08-16",
+              "excerpt": "Alibaba.com provides verification programs and listing tools, but sellers remain responsible for meeting destination-country export and product requirements, including upcoming EU traceability and due-diligence rules.",
+              "language": "en",
+              "verification_level": "platform_rule"
+            }
+          ]
+        }
+      ]
+    },
+    "Amazon": {
+      "requirements": [
+        {
+          "requirement_id": "amazon-eu-gpsr-fields",
+          "regulation_id": "platform-amazon-EU",
+          "title": "Amazon EU listings require manufacturer and GPSR responsible person data",
+          "requirement_type": "platform_rule",
+          "product_scope": {
+            "all": [
+              {"attr": "category", "in": ["consumer_electronics", "electronics", "audio", "lighting", "cosmetics"]}
+            ],
+            "countries": ["EU"]
+          },
+          "missing_if_unmet": "Amazon GPSR manufacturer + EU Responsible Person listing attributes",
+          "default_status_if_unmet": "WARNING",
+          "satisfied_by": ["EU-RP", "AMAZON-GPSR"],
+          "actions": [
+            "Complete Amazon GPSR fields in Seller Central",
+            "Appoint an EU responsible person if not already named"
+          ],
+          "evidence": [
+            {
+              "authority": "Amazon",
+              "document": "Amazon product compliance / GPSR listing requirements",
+              "article": "Seller responsibility; GPSR listing attributes",
+              "source_url": "https://m.media-amazon.com/images/G/28/AS/AGS/SU/CN_GS_Regulatory_Compliance_1.1_Product_Compliance_EU_EN.pdf",
+              "retrieved_at": "2026-08-16",
+              "excerpt": "Sellers are responsible for understanding regulatory requirements of the country in which they sell. Amazon can suppress listings that lack required compliance information and refers sellers to EU Safety Gate for recalls.",
+              "language": "en",
+              "verification_level": "platform_rule"
+            }
+          ]
+        },
+        {
+          "requirement_id": "amazon-us-product-compliance",
+          "regulation_id": "platform-amazon-US",
+          "title": "Amazon US sellers must comply with destination laws; restricted/regulated products can be suppressed",
+          "requirement_type": "platform_rule",
+          "product_scope": {
+            "all": [
+              {"attr": "category", "in": ["consumer_electronics", "electronics", "audio", "lighting", "cosmetics"]}
+            ],
+            "countries": ["US"]
+          },
+          "missing_if_unmet": "Amazon-ready test reports (FCC/UL/CPSC as applicable)",
+          "default_status_if_unmet": "WARNING",
+          "satisfied_by": ["FCC", "FCC-ID", "UL", "ETL", "FDA-MOCRA"],
+          "actions": [
+            "Keep lab reports ready for Amazon product compliance requests",
+            "Check restricted product categories before listing"
+          ],
+          "evidence": [
+            {
+              "authority": "Amazon",
+              "document": "Amazon product compliance (US)",
+              "article": "Seller responsibility for US regulatory requirements",
+              "source_url": "https://m.media-amazon.com/images/G/28/AS/AGS/SU/CN_GS_Regulatory_Compliance_1.1_Product_Compliance_US_EN.pdf",
+              "retrieved_at": "2026-08-16",
+              "excerpt": "Sellers are responsible for understanding the regulatory requirements and industry standards of the country in which they want to sell. Restricted, prohibited, or regulated products can lead to listing or account action.",
+              "language": "en",
+              "verification_level": "platform_rule"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

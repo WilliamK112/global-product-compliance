@@ -1,0 +1,11 @@
+name: diff_regulation
+version: 0.1.0
+description: Diff two versions of a regulation and emit changed requirements.
+input_schema: {type: object, required: [v1, v2]}
+output_schema: {type: object, required: [changed_requirements]}
+permissions: [read_regulation_graph]
+data_sources: [regulation_graph]
+verification: version_and_hash
+failure_modes: [unstructured_pdf]
+fallback: alert human reviewer
+audit: true

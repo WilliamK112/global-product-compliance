@@ -1,0 +1,11 @@
+name: extract_requirement
+version: 0.1.0
+description: Extract machine-checkable requirements from a parsed regulation.
+input_schema: {type: object, required: [regulation]}
+output_schema: {type: object, required: [requirements]}
+permissions: [read_regulation_graph]
+data_sources: [regulation_graph]
+verification: article_and_url_required
+failure_modes: [vague_obligation]
+fallback: EXPERT_REVIEW_REQUIRED
+audit: true

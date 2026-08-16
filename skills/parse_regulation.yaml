@@ -1,0 +1,11 @@
+name: parse_regulation
+version: 0.1.0
+description: Parse an official regulation document into versioned metadata. LLM may propose fields; official URL and hash are mandatory.
+input_schema: {type: object, required: [source_url]}
+output_schema: {type: object, required: [regulation]}
+permissions: [read_url]
+data_sources: [official_government]
+verification: official_source_required
+failure_modes: [paywall, unofficial_mirror]
+fallback: do not encode the requirement
+audit: true

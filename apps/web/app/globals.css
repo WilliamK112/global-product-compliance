@@ -143,10 +143,58 @@ td { padding: 12px 6px; border-bottom: 1px solid #ead9b4; vertical-align: top; }
   padding: 0 32px 22px 40px; color: var(--muted); font-size: 12px;
   font-family: "IBM Plex Mono", monospace;
 }
+.toc {
+  display: flex; flex-wrap: wrap; gap: 6px 10px;
+  padding: 12px 32px 14px 40px; border-bottom: 1px solid var(--rule);
+  position: sticky; top: 0; z-index: 4; background: rgba(246,236,216,.94);
+}
+.toc a {
+  font-family: "IBM Plex Mono", monospace; font-size: 11px; color: var(--muted);
+  text-decoration: none; letter-spacing: .04em;
+}
+.toc a:hover, .toc a.active { color: var(--spine); }
+.chapter {
+  padding: 22px 32px 8px 40px; position: relative; z-index: 1;
+}
+.chapter h2 {
+  margin: 0 0 10px; font-size: 13px; letter-spacing: .18em; text-transform: uppercase;
+  font-family: "IBM Plex Mono", monospace; font-weight: 500; color: var(--spine);
+}
+.chapter h3 {
+  font-family: Fraunces, "Songti SC", serif; font-size: 26px; margin: 0 0 12px; font-weight: 680;
+}
+.chapter p, .chapter li { line-height: 1.65; font-size: 15px; color: #2b261f; }
+.chapter p { margin: 0 0 10px; max-width: 62em; }
+.lede { font-size: 18px !important; max-width: 42em !important; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+.card {
+  background: #fffdf8; border: 1px solid var(--rule); padding: 12px 14px;
+}
+.card b { display: block; margin-bottom: 6px; }
+.tree {
+  font-family: "IBM Plex Mono", monospace; font-size: 12px; line-height: 1.45;
+  background: #fffdf8; border: 1px solid var(--rule); padding: 12px 14px;
+  white-space: pre; overflow: auto; color: #3a342c; margin: 0;
+}
+.q-list { list-style: none; padding: 0; margin: 0; }
+.q-list li {
+  display: grid; grid-template-columns: 42px 1fr; gap: 10px;
+  padding: 10px 0; border-bottom: 1px dashed var(--rule);
+}
+.q-no {
+  font-family: Fraunces, serif; color: var(--spine); font-size: 20px;
+}
+.pyramid { display: grid; gap: 6px; }
+.pyramid .card { display: grid; grid-template-columns: 220px 1fr; gap: 12px; align-items: start; }
+.twin-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.twin dt { font-family: "IBM Plex Mono", monospace; font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-top: 8px; }
+.twin dd { margin: 2px 0 0; font-size: 13px; }
 @media (max-width: 920px) {
-  .layout, .mast { display: block; }
+  .layout, .mast, .grid-2, .grid-3, .twin-grid, .pyramid .card { display: block; }
   .kpis { grid-template-columns: 1fr 1fr; }
   .meta { text-align: left; margin-top: 12px; }
   .ribbon { display: none; }
   .doc::after { display: none; }
+  .toc { position: static; }
 }

@@ -41,6 +41,10 @@ Scanned 2026-08-16. GitHub user `WilliamK112` (112 repos) plus local `~/Projects
 - No overwrite of existing repos.
 - Healthcare market-access research (US/Indonesia drug distribution) is **analogous**, not portable, to Bluetooth/LED/cosmetics.
 
+## Akang D1 / legal corpus (2026-08-16 follow-up)
+
+See `research/AKANG_DATA_USE.md`. Inspected `akang-health-global-db` config and the Indonesia/US legal corpus. **Not imported.** Pharma SKUs, CDOB lists, and company financials stay in Akang. Method (source + hash + excerpt) was already reused.
+
 ## What we actually reused
 
 1. Evidence object shape (authority, document, article, URL, retrieved_at, hash).

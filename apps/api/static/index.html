@@ -4,75 +4,193 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>CanSell · 能卖哪</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,520;9..144,680&family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet" />
   <style>
-    :root { --bg:#0f1419; --panel:#171e26; --line:#2a3542; --text:#e8eef4; --muted:#93a1b0; --pass:#3dd68c; --warn:#f5c84c; --block:#ff6b6b; --unc:#8b9bb4; }
+    :root {
+      --harbor: #101814;
+      --desk: #1a241c;
+      --paper: #f6ecd8;
+      --paper-2: #efe2c6;
+      --ink: #1b1712;
+      --muted: #6f675b;
+      --rule: #d7c7a4;
+      --spine: #9d1c16;
+      --pass: #1c6a45;
+      --pass-bg: #dcecdc;
+      --warn: #9a5a0c;
+      --warn-bg: #f4e0bc;
+      --block: #9d1c16;
+      --block-bg: #f3d4cc;
+      --unc: #5c6570;
+      --unc-bg: #e4e0d6;
+      --accent: #c45c12;
+    }
     * { box-sizing: border-box; }
-    body { margin:0; font-family:"IBM Plex Sans","Noto Sans SC",sans-serif; background:var(--bg); color:var(--text); }
-    .wrap { max-width:1200px; margin:0 auto; padding:28px 20px 72px; }
-    h1 { margin:0 0 6px; font-size:28px; }
-    .sub { color:var(--muted); max-width:760px; line-height:1.5; margin:0 0 14px; }
-    .banner { background:#3a2208; color:#ffd9a8; padding:10px 12px; border-radius:8px; margin-bottom:16px; font-size:13px; }
-    .kpi { display:grid; grid-template-columns:repeat(5,1fr); gap:8px; margin:14px 0; }
-    .kpi div, .card { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:14px; }
-    .kpi strong { display:block; font-size:22px; }
-    .muted { color:var(--muted); font-size:12px; line-height:1.45; }
-    .grid { display:grid; grid-template-columns:1.45fr 1fr; gap:14px; }
-    table { width:100%; border-collapse:collapse; font-size:13px; }
-    th, td { border-bottom:1px solid var(--line); padding:7px; text-align:left; vertical-align:top; }
-    button, .file { background:#2d6cdf; color:#fff; border:0; border-radius:8px; padding:8px 12px; cursor:pointer; font:inherit; }
-    button.secondary { background:#2a3542; }
-    .row { display:flex; gap:8px; flex-wrap:wrap; margin:12px 0; }
-    input[type=text] { background:#10161c; color:var(--text); border:1px solid var(--line); border-radius:8px; padding:8px; min-width:220px; }
-    .PASS { color:var(--pass); font-weight:700; cursor:pointer; }
-    .WARNING { color:var(--warn); font-weight:700; cursor:pointer; }
-    .BLOCKED { color:var(--block); font-weight:700; cursor:pointer; }
-    .UNCERTAIN { color:var(--unc); font-weight:700; cursor:pointer; }
-    a { color:#9ec1ff; }
-    .tabs { display:flex; gap:8px; margin-bottom:10px; }
-    .tabs span { font-size:12px; color:var(--muted); }
-    @media (max-width:900px) { .grid,.kpi { grid-template-columns:1fr; } }
+    html, body { margin: 0; background:
+      radial-gradient(1200px 500px at 10% -10%, #2a3a30 0%, transparent 55%),
+      linear-gradient(180deg, var(--harbor), var(--desk));
+      color: var(--ink); font-family: "Noto Sans SC", "Songti SC", sans-serif; }
+    a { color: #8a2a1c; }
+    .shell { max-width: 1180px; margin: 28px auto 80px; padding: 0 18px; }
+    .doc {
+      background: var(--paper);
+      border: 1px solid #cbb992;
+      box-shadow: 0 30px 80px rgba(0,0,0,.35), 0 1px 0 rgba(255,255,255,.4) inset;
+      position: relative;
+      overflow: hidden;
+    }
+    .doc::before {
+      content: "";
+      position: absolute; left: 0; top: 0; bottom: 0; width: 8px;
+      background: repeating-linear-gradient(180deg, var(--spine) 0 18px, #7a120e 18px 22px);
+    }
+    .mast {
+      display: flex; justify-content: space-between; gap: 24px; align-items: flex-start;
+      padding: 28px 32px 18px 40px; border-bottom: 1px solid var(--rule);
+    }
+    .mark {
+      width: 54px; height: 54px; border: 2px solid var(--spine); color: var(--spine);
+      display: grid; place-items: center; font-family: Fraunces, serif; font-weight: 680;
+      transform: rotate(-8deg); letter-spacing: .04em; font-size: 13px; background: rgba(157,28,22,.06);
+    }
+    .brand { display: flex; gap: 16px; align-items: center; }
+    .brand h1 { margin: 0; font-family: Fraunces, "Songti SC", serif; font-size: 34px; font-weight: 680; letter-spacing: -.02em; }
+    .brand .en { font-family: "IBM Plex Mono", monospace; font-size: 11px; color: var(--muted); letter-spacing: .16em; text-transform: uppercase; }
+    .tagline { margin: 6px 0 0; color: var(--muted); max-width: 420px; line-height: 1.5; font-size: 14px; }
+    .meta { text-align: right; font-family: "IBM Plex Mono", monospace; font-size: 11px; color: var(--muted); line-height: 1.7; }
+    .meta b { color: var(--ink); font-weight: 500; }
+    .banner {
+      margin: 0 32px 0 40px; padding: 10px 12px; border: 1px dashed #c45c12;
+      background: #f8e6c8; color: #6a3b08; font-size: 13px;
+    }
+    .kpis { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; padding: 18px 32px 8px 40px; }
+    .kpi {
+      background: var(--paper-2); border: 1px solid var(--rule); padding: 12px 12px 10px;
+    }
+    .kpi span { display: block; font-family: "IBM Plex Mono", monospace; font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+    .kpi strong { display: block; font-family: Fraunces, serif; font-size: 28px; margin-top: 4px; }
+    .toolbar { display: flex; flex-wrap: wrap; gap: 8px; padding: 12px 32px 0 40px; align-items: center; }
+    button {
+      font: inherit; border: 1px solid var(--ink); background: var(--ink); color: var(--paper);
+      padding: 8px 12px; cursor: pointer;
+    }
+    button.ghost { background: transparent; color: var(--ink); }
+    button:hover { background: var(--spine); border-color: var(--spine); color: #fff; }
+    button.ghost:hover { background: var(--ink); color: var(--paper); }
+    input[type=text] {
+      font-family: "IBM Plex Mono", monospace; font-size: 12px; border: 1px solid var(--rule);
+      background: #fffdf6; color: var(--ink); padding: 8px 10px; min-width: 210px;
+    }
+    .hint { padding: 8px 32px 16px 40px; color: var(--muted); font-size: 12px; }
+    .layout { display: grid; grid-template-columns: 1.35fr .9fr; gap: 16px; padding: 0 32px 28px 40px; }
+    .panel { background: #fffdf8; border: 1px solid var(--rule); min-height: 420px; }
+    .panel h2 {
+      margin: 0; padding: 12px 14px; border-bottom: 1px solid var(--rule);
+      font-size: 13px; letter-spacing: .18em; text-transform: uppercase;
+      font-family: "IBM Plex Mono", monospace; font-weight: 500;
+    }
+    .panel .body { padding: 12px 14px 16px; }
+    table { width: 100%; border-collapse: collapse; }
+    th { font-family: "IBM Plex Mono", monospace; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); font-weight: 500; padding: 8px 6px; border-bottom: 1px solid var(--rule); text-align: left; }
+    td { padding: 12px 6px; border-bottom: 1px solid #ead9b4; vertical-align: top; }
+    .prod { font-weight: 700; }
+    .sku { font-family: "IBM Plex Mono", monospace; font-size: 11px; color: var(--muted); margin-top: 3px; }
+    .stamps { display: flex; flex-direction: column; gap: 6px; }
+    .stamp {
+      display: inline-flex; align-items: center; justify-content: space-between; gap: 8px;
+      border: 1.5px solid currentColor; padding: 5px 7px; font-size: 11px; cursor: pointer;
+      font-family: "IBM Plex Mono", monospace; letter-spacing: .04em; background: transparent;
+      color: inherit;
+    }
+    .stamp:hover { filter: brightness(.92); transform: rotate(-1deg); }
+    .stamp.PASS { color: var(--pass); background: var(--pass-bg); }
+    .stamp.WARNING { color: var(--warn); background: var(--warn-bg); }
+    .stamp.BLOCKED { color: var(--block); background: var(--block-bg); }
+    .stamp.UNCERTAIN, .stamp.EXPERT_REVIEW_REQUIRED { color: var(--unc); background: var(--unc-bg); }
+    .empty {
+      min-height: 320px; display: grid; place-items: center; text-align: center; color: var(--muted); padding: 24px;
+    }
+    .empty .chop {
+      width: 88px; height: 88px; border: 3px solid var(--spine); color: var(--spine); border-radius: 50%;
+      display: grid; place-items: center; margin: 0 auto 12px; transform: rotate(-12deg);
+      font-family: Fraunces, serif; font-size: 18px; opacity: .7;
+    }
+    .status-xl { font-family: Fraunces, serif; font-size: 28px; margin: 0 0 8px; }
+    .docket dt { font-family: "IBM Plex Mono", monospace; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin-top: 12px; }
+    .docket dd { margin: 4px 0 0; line-height: 1.5; font-size: 14px; }
+    .finding { border-top: 1px dashed var(--rule); margin-top: 12px; padding-top: 10px; }
+    .wide { padding: 0 32px 28px 40px; }
+    .wide .panel { min-height: 0; margin-top: 4px; }
+    ol, ul { margin: 6px 0 0; padding-left: 18px; }
+    @media (max-width: 920px) {
+      .layout, .kpis, .mast { grid-template-columns: 1fr; display: block; }
+      .meta { text-align: left; margin-top: 12px; }
+      .kpis { display: grid; grid-template-columns: 1fr 1fr; }
+    }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <h1>CanSell · 能卖哪</h1>
-    <p class="sub">Know where every product can sell — before regulations stop it. Product × country × platform × regulation. 不是法律意见，也不是法规搜索。</p>
-    <div class="banner">自动研判必须绑定官方来源。LLM 不能单独作为证据。沉默 PASS 被禁止。赛题：无界应用 · AI+工业制造。</div>
-    <div class="kpi" id="kpi"></div>
-    <div class="row">
-      <button class="secondary" id="reload">Reload catalog</button>
-      <button id="change">Simulate regulation change</button>
-      <a href="/pitch"><button class="secondary" type="button">Pitch</button></a>
-    </div>
-    <div class="row">
-      <input id="sku" value="BT-SPEAKER-01" />
-      <input id="certs" value="CE-RED,EU-RP,FCC,DJID" />
-      <button id="recheck">Re-check after attaching evidence</button>
-    </div>
-    <p class="muted">整改闭环：给音箱补上 CE-RED / EU-RP / FCC / DJID 后再评估。状态必须由引擎重算，不能写死。</p>
-    <div class="grid">
-      <div class="card">
-        <h2>Compliance matrix</h2>
-        <p class="muted">点击单元格查看 Why / Article / Evidence / Missing / Action。</p>
-        <div id="matrix"></div>
+  <div class="shell">
+    <article class="doc">
+      <header class="mast">
+        <div class="brand">
+          <div class="mark">放行</div>
+          <div>
+            <div class="en">Market access passport</div>
+            <h1>能卖哪 · CanSell</h1>
+            <p class="tagline">Know where every product can sell — before regulations stop it.</p>
+          </div>
+        </div>
+        <div class="meta">
+          DOC NO. <b>CN-EX-2026-0816</b><br />
+          TRACK <b>GOAI / 工业制造</b><br />
+          MARKETS <b>EU · US · ID</b><br />
+          PLATFORMS <b>Alibaba.com · Amazon</b><br />
+          STATUS <b>NOT LEGAL ADVICE</b>
+        </div>
+      </header>
+      <div class="banner">自动研判必须绑定官方来源。LLM 不能单独作为证据。沉默 PASS 被禁止。点击印章查看条款与缺失项。</div>
+      <div class="kpis" id="kpi"></div>
+      <div class="toolbar">
+        <button class="ghost" id="reload">重载目录</button>
+        <button id="change">模拟法规变更</button>
+        <a href="/pitch"><button class="ghost" type="button">路演页</button></a>
+        <input id="sku" value="BT-SPEAKER-01" />
+        <input id="certs" value="CE-RED,EU-RP,FCC,DJID" />
+        <button id="recheck">补证后再评估</button>
       </div>
-      <div class="card" id="detail">
-        <h2>Cell detail</h2>
-        <p class="muted">先点矩阵。</p>
+      <p class="hint">整改闭环：给蓝牙音箱附上 CE-RED / EU-RP / FCC / DJID，状态由引擎重算，不能写死。</p>
+      <div class="layout">
+        <section class="panel">
+          <h2>01 / Compliance ledger</h2>
+          <div class="body" id="matrix"></div>
+        </section>
+        <aside class="panel" id="detail">
+          <h2>02 / Evidence docket</h2>
+          <div class="empty">
+            <div>
+              <div class="chop">待查</div>
+              点左侧印章，打开 Why、条款、证据和整改。
+            </div>
+          </div>
+        </aside>
       </div>
-    </div>
-    <div class="card" style="margin-top:14px" id="actions-card">
-      <h2>Required actions</h2>
-      <div id="actions" class="muted">从矩阵聚合。</div>
-    </div>
-    <div class="card" style="margin-top:14px; display:none" id="change-card">
-      <h2>Regulation change impact</h2>
-      <div id="change-body"></div>
-    </div>
+      <div class="wide">
+        <section class="panel">
+          <h2>03 / Required actions</h2>
+          <div class="body" id="actions"></div>
+        </section>
+        <section class="panel" id="change-card" style="display:none; margin-top:16px">
+          <h2>04 / Change impact</h2>
+          <div class="body" id="change-body"></div>
+        </section>
+      </div>
+    </article>
   </div>
   <script>
-    const SYMBOL = {PASS:"✓ PASS", WARNING:"⚠ WARNING", BLOCKED:"✕ BLOCKED", UNCERTAIN:"? UNCERTAIN", EXPERT_REVIEW_REQUIRED:"▣ EXPERT"};
-    const RANK = {PASS:0, UNCERTAIN:1, WARNING:2, EXPERT_REVIEW_REQUIRED:3, BLOCKED:4};
+    const LABEL = {PASS:"放行 PASS", WARNING:"待补 WARNING", BLOCKED:"受阻 BLOCKED", UNCERTAIN:"待定 UNCERTAIN", EXPERT_REVIEW_REQUIRED:"复核 EXPERT"};
     let DATA = null;
 
     async function load() {
@@ -85,19 +203,19 @@
       const tally = {PASS:0, WARNING:0, BLOCKED:0, UNCERTAIN:0};
       DATA.matrix.forEach(c => tally[c.status] = (tally[c.status]||0)+1);
       document.getElementById("kpi").innerHTML = `
-        <div><span class="muted">SKUs</span><strong>${DATA.products.length}</strong></div>
-        <div><span class="muted">Cells</span><strong>${DATA.matrix.length}</strong></div>
-        <div><span class="muted">Blocked</span><strong class="BLOCKED">${tally.BLOCKED||0}</strong></div>
-        <div><span class="muted">Warning</span><strong class="WARNING">${tally.WARNING||0}</strong></div>
-        <div><span class="muted">Pass</span><strong class="PASS">${tally.PASS||0}</strong></div>`;
-      let html = `<table><thead><tr><th>Product</th>${DATA.countries.map(c=>`<th>${c}</th>`).join("")}</tr></thead><tbody>`;
+        <div class="kpi"><span>Catalog</span><strong>${DATA.products.length}</strong></div>
+        <div class="kpi"><span>Cells</span><strong>${DATA.matrix.length}</strong></div>
+        <div class="kpi"><span>Blocked</span><strong style="color:var(--block)">${tally.BLOCKED||0}</strong></div>
+        <div class="kpi"><span>Warning</span><strong style="color:var(--warn)">${tally.WARNING||0}</strong></div>
+        <div class="kpi"><span>Pass</span><strong style="color:var(--pass)">${tally.PASS||0}</strong></div>`;
+      let html = `<table><thead><tr><th>SKU</th>${DATA.countries.map(c=>`<th>${c}</th>`).join("")}</tr></thead><tbody>`;
       DATA.products.forEach(p => {
-        html += `<tr><td>${p.name}<div class="muted">${p.sku} · ${p.category}<br/>certs: ${(p.certifications||[]).join(", ")||"—"}</div></td>`;
+        html += `<tr><td><div class="prod">${p.name}</div><div class="sku">${p.sku} · ${p.category}<br/>${(p.certifications||[]).join(" · ")||"no certificates"}</div></td>`;
         DATA.countries.forEach(country => {
           const cells = DATA.matrix.filter(i => i.sku===p.sku && i.country===country);
-          html += `<td>` + cells.map(cell =>
-            `<div class="${cell.status}" data-sku="${cell.sku}" data-country="${cell.country}" data-platform="${cell.platform}">${cell.platform.replace(".com","")}: ${SYMBOL[cell.status]}</div>`
-          ).join("") + `</td>`;
+          html += `<td><div class="stamps">` + cells.map(cell =>
+            `<button type="button" class="stamp ${cell.status}" data-sku="${cell.sku}" data-country="${cell.country}" data-platform="${cell.platform}"><span>${cell.platform.replace(".com","")}</span><span>${LABEL[cell.status]}</span></button>`
+          ).join("") + `</div></td>`;
         });
         html += `</tr>`;
       });
@@ -106,29 +224,30 @@
       document.querySelectorAll("[data-sku]").forEach(el => el.onclick = () => showCell(el.dataset.sku, el.dataset.country, el.dataset.platform));
       const steps = [];
       (DATA.actions||[]).forEach(plan => {
-        plan.steps.slice(0,2).forEach(s => steps.push(`${plan.sku} × ${plan.country} × ${plan.platform}: ${s.action}`));
+        plan.steps.slice(0,2).forEach(s => steps.push(`<div style="padding:8px 0;border-bottom:1px dashed var(--rule)"><b>${plan.sku}</b> · ${plan.country} · ${plan.platform}<div class="sku">${s.action}</div></div>`));
       });
-      document.getElementById("actions").innerHTML = steps.slice(0,12).map(s=>`<div>${s}</div>`).join("") || "No open actions.";
+      document.getElementById("actions").innerHTML = steps.slice(0,10).join("") || "No open actions.";
     }
 
     function showCell(sku, country, platform) {
       const cell = DATA.matrix.find(i => i.sku===sku && i.country===country && i.platform===platform);
       if (!cell) return;
       document.getElementById("detail").innerHTML = `
-        <h2>${sku} × ${country} × ${platform}</h2>
-        <p class="${cell.status}">${SYMBOL[cell.status]}</p>
-        <p><b>Why</b><br/>${cell.why}</p>
-        <p class="muted">confidence ${cell.confidence} · evidence ${cell.evidence_quality} · verified ${cell.last_verified}</p>
-        <p><b>Missing</b></p>
-        <ul>${(cell.missing_items||[]).map(i=>`<li>${i}</li>`).join("")||"<li>none</li>"}</ul>
-        <p><b>Required actions</b></p>
-        <ol>${(cell.required_actions||[]).map(i=>`<li>${i}</li>`).join("")}</ol>
-        ${(cell.findings||[]).map(f => `
-          <div style="margin-top:10px">
-            <b>${f.title}</b>
-            <div class="muted">${f.requirement_id} · ${f.status}</div>
-            ${(f.evidence||[]).map(ev => `<div class="muted">${ev.authority} · ${ev.document} · ${ev.article}<br/><a href="${ev.source_url}" target="_blank">${ev.source_url}</a><br/>${ev.excerpt}<br/>hash ${ev.hash.slice(0,12)}</div>`).join("")}
-          </div>`).join("")}`;
+        <h2>02 / Evidence docket</h2>
+        <div class="body docket">
+          <p class="status-xl ${cell.status}" style="color:inherit">${LABEL[cell.status]}</p>
+          <div class="sku">${sku} × ${country} × ${platform}</div>
+          <dt>Why</dt><dd>${cell.why}</dd>
+          <dt>Confidence</dt><dd>${cell.confidence} · ${cell.evidence_quality} · ${cell.last_verified}</dd>
+          <dt>Missing</dt><dd><ul>${(cell.missing_items||[]).map(i=>`<li>${i}</li>`).join("")||"<li>none</li>"}</ul></dd>
+          <dt>Actions</dt><dd><ol>${(cell.required_actions||[]).map(i=>`<li>${i}</li>`).join("")}</ol></dd>
+          ${(cell.findings||[]).map(f => `
+            <div class="finding">
+              <b>${f.title}</b>
+              <div class="sku">${f.requirement_id} · ${f.status}</div>
+              ${(f.evidence||[]).map(ev => `<div class="sku" style="margin-top:6px">${ev.authority} · ${ev.document} · ${ev.article}<br/><a href="${ev.source_url}" target="_blank">${ev.source_url}</a><br/>${ev.excerpt}<br/>hash ${ev.hash.slice(0,12)}</div>`).join("")}
+            </div>`).join("")}
+        </div>`;
     }
 
     document.getElementById("reload").onclick = load;
@@ -137,12 +256,13 @@
       const data = await res.json();
       document.getElementById("change-card").style.display = "block";
       const rows = Object.keys(data.impact.after).map(k =>
-        `<tr><td>${k}</td><td class="${data.impact.before[k]}">${data.impact.before[k]}</td><td class="${data.impact.after[k]}">${data.impact.after[k]}</td></tr>`
+        `<tr><td class="sku">${k}</td><td>${data.impact.before[k]}</td><td><b>${data.impact.after[k]}</b></td></tr>`
       ).join("");
       document.getElementById("change-body").innerHTML = `
         <p>${data.impact.summary}</p>
-        <p>Affected SKUs: <b>${(data.impact.affected_skus||[]).join(", ") || "none"}</b> / ${DATA.products.length}</p>
+        <p>受影响 SKU：<b>${(data.impact.affected_skus||[]).join(", ") || "none"}</b> / ${DATA.products.length}</p>
         <table><thead><tr><th>Cell</th><th>Before</th><th>After</th></tr></thead><tbody>${rows}</tbody></table>`;
+      document.getElementById("change-card").scrollIntoView({behavior:"smooth"});
     };
     document.getElementById("recheck").onclick = async () => {
       const sku = document.getElementById("sku").value.trim();
@@ -152,7 +272,7 @@
       DATA = data.portfolio;
       render();
       const moved = Object.entries(data.moved||{}).map(([k,v]) => `${k}: ${v.before} → ${v.after}`).join("<br/>") || "no status change";
-      document.getElementById("detail").innerHTML = `<h2>Re-check ${sku}</h2><p>Attached: ${data.certifications.join(", ")}</p><p>${moved}</p>`;
+      document.getElementById("detail").innerHTML = `<h2>02 / Evidence docket</h2><div class="body"><p class="status-xl">已复检</p><p>附证：${data.certifications.join(", ")}</p><p class="sku">${moved}</p></div>`;
     };
     load();
   </script>

@@ -35,6 +35,13 @@ uvicorn apps.api.main:app --port 8000
 
 仓库：https://github.com/WilliamK112/global-product-compliance
 
+## 在线 Demo
+
+https://cansell-kappa.vercel.app  
+路演页：https://cansell-kappa.vercel.app/pitch.html
+
+引擎在 Vercel 上以 Next.js API 运行（TypeScript 端口）。Python 引擎仍是 pytest 的源。
+
 ## License
 
 MIT。法规摘录仅用于识别，全文以官方 URL 为准。

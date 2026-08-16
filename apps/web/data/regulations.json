@@ -1,0 +1,552 @@
+{
+  "coverage_note": "Credible subset only: consumer electronics + one cosmetics contrast SKU; EU, US, Indonesia. Every requirement binds an official or platform source URL. This is not global coverage.",
+  "regulations": [
+    {
+      "regulation_id": "eu-red-2014-53",
+      "version": "2014L0053",
+      "jurisdiction": "EU",
+      "authority": "European Parliament and Council",
+      "document": "Directive 2014/53/EU (Radio Equipment Directive)",
+      "status": "in_force",
+      "effective_from": "2016-06-13",
+      "effective_to": null,
+      "supersedes": "1999/5/EC",
+      "source_url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32014L0053",
+      "source_hash": "",
+      "language": "en",
+      "retrieved_at": "2026-08-16",
+      "requirements": [
+        {
+          "requirement_id": "eu-red-essential",
+          "regulation_id": "eu-red-2014-53",
+          "title": "Radio equipment must meet RED essential requirements and conformity assessment",
+          "requirement_type": "certification",
+          "product_scope": {
+            "all": [
+              {"attr": "has_wireless", "eq": true},
+              {"attr": "category", "in": ["consumer_electronics", "electronics", "audio", "lighting"]}
+            ]
+          },
+          "missing_if_unmet": "RED conformity assessment / CE under RED / RF test report",
+          "default_status_if_unmet": "BLOCKED",
+          "satisfied_by": ["CE-RED", "RED", "CE_RED", "RF-TEST"],
+          "actions": [
+            "Obtain RF/EMC test report covering the wireless module against RED essential requirements",
+            "Complete EU Declaration of Conformity naming Directive 2014/53/EU",
+            "Affix CE marking and retain technical documentation"
+          ],
+          "evidence": [
+            {
+              "authority": "European Parliament and Council",
+              "document": "Directive 2014/53/EU",
+              "article": "Article 3; Article 10; Article 17",
+              "source_url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32014L0053",
+              "retrieved_at": "2026-08-16",
+              "excerpt": "Radio equipment shall be constructed so as to ensure the protection of health and safety, EMC, and effective use of radio spectrum. Manufacturers shall ensure that radio equipment has been designed and manufactured in accordance with the essential requirements and shall draw up the EU declaration of conformity.",
+              "language": "en",
+              "verification_level": "official_regulation"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "regulation_id": "eu-lvd-2014-35",
+      "version": "2014L0035",
+      "jurisdiction": "EU",
+      "authority": "European Parliament and Council",
+      "document": "Directive 2014/35/EU (Low Voltage Directive)",
+      "status": "in_force",
+      "effective_from": "2016-04-20",
+      "effective_to": null,
+      "supersedes": null,
+      "source_url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32014L0035",
+      "source_hash": "",
+      "language": "en",
+      "retrieved_at": "2026-08-16",
+      "requirements": [
+        {
+          "requirement_id": "eu-lvd-safety",
+          "regulation_id": "eu-lvd-2014-35",
+          "title": "Mains-powered electrical equipment must meet LVD safety objectives",
+          "requirement_type": "certification",
+          "product_scope": {
+            "all": [
+              {"attr": "mains_powered", "eq": true},
+              {"attr": "category", "in": ["consumer_electronics", "electronics", "lighting"]}
+            ]
+          },
+          "missing_if_unmet": "LVD safety test / CE under LVD",
+          "default_status_if_unmet": "BLOCKED",
+          "satisfied_by": ["CE-LVD", "LVD", "CE_LVD"],
+          "actions": [
+            "Test against applicable LVD harmonised standards",
+            "Prepare technical file and EU Declaration of Conformity"
+          ],
+          "evidence": [
+            {
+              "authority": "European Parliament and Council",
+              "document": "Directive 2014/35/EU",
+              "article": "Article 3; Annex I",
+              "source_url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32014L0035",
+              "retrieved_at": "2026-08-16",
+              "excerpt": "Electrical equipment may be made available on the market only if it has been designed and manufactured in accordance with the safety objectives set out in Annex I.",
+              "language": "en",
+              "verification_level": "official_regulation"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "regulation_id": "eu-emc-2014-30",
+      "version": "2014L0030",
+      "jurisdiction": "EU",
+      "authority": "European Parliament and Council",
+      "document": "Directive 2014/30/EU (EMC Directive)",
+      "status": "in_force",
+      "effective_from": "2016-04-20",
+      "effective_to": null,
+      "supersedes": null,
+      "source_url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32014L0030",
+      "source_hash": "",
+      "language": "en",
+      "retrieved_at": "2026-08-16",
+      "requirements": [
+        {
+          "requirement_id": "eu-emc",
+          "regulation_id": "eu-emc-2014-30",
+          "title": "Electrical equipment must meet EMC essential requirements",
+          "requirement_type": "testing",
+          "product_scope": {
+            "all": [
+              {"attr": "category", "in": ["consumer_electronics", "electronics", "audio", "lighting"]}
+            ]
+          },
+          "missing_if_unmet": "EMC test report / CE under EMC",
+          "default_status_if_unmet": "WARNING",
+          "satisfied_by": ["CE-EMC", "EMC", "CE_EMC", "CE-RED"],
+          "actions": [
+            "Obtain EMC test report against applicable harmonised standards"
+          ],
+          "evidence": [
+            {
+              "authority": "European Parliament and Council",
+              "document": "Directive 2014/30/EU",
+              "article": "Article 3; Article 7",
+              "source_url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32014L0030",
+              "retrieved_at": "2026-08-16",
+              "excerpt": "Equipment shall be so designed and manufactured as to ensure that the electromagnetic disturbance generated does not exceed the level above which radio and telecommunications equipment cannot operate as intended.",
+              "language": "en",
+              "verification_level": "official_regulation"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "regulation_id": "eu-gpsr-2023-988",
+      "version": "2023R0988",
+      "jurisdiction": "EU",
+      "authority": "European Parliament and Council",
+      "document": "Regulation (EU) 2023/988 on general product safety (GPSR)",
+      "status": "in_force",
+      "effective_from": "2024-12-13",
+      "effective_to": null,
+      "supersedes": "2001/95/EC",
+      "source_url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R0988",
+      "source_hash": "",
+      "language": "en",
+      "retrieved_at": "2026-08-16",
+      "requirements": [
+        {
+          "requirement_id": "eu-gpsr-responsible-person",
+          "regulation_id": "eu-gpsr-2023-988",
+          "title": "Non-EU manufacturers need an economic operator established in the EU as responsible person",
+          "requirement_type": "local_representative",
+          "product_scope": {
+            "all": [
+              {"attr": "origin", "in": ["CN", "CHINA"]},
+              {"attr": "category", "in": ["consumer_electronics", "electronics", "audio", "lighting", "cosmetics"]}
+            ]
+          },
+          "missing_if_unmet": "EU responsible person / authorised representative named on product or packaging",
+          "default_status_if_unmet": "WARNING",
+          "satisfied_by": ["EU-RP", "EU_RESPONSIBLE_PERSON", "EU-AR"],
+          "actions": [
+            "Appoint an EU responsible person",
+            "Place name and contact details on the product or packaging",
+            "Ensure technical documentation can be provided to market surveillance"
+          ],
+          "evidence": [
+            {
+              "authority": "European Parliament and Council",
+              "document": "Regulation (EU) 2023/988",
+              "article": "Article 4(1); Article 16",
+              "source_url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023R0988",
+              "retrieved_at": "2026-08-16",
+              "excerpt": "A product may be placed on the market only if there is an economic operator established in the Union responsible for the tasks in Article 4(3). For products from outside the Union this is typically the importer or an authorised representative.",
+              "language": "en",
+              "verification_level": "official_regulation"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "regulation_id": "eu-cosmetics-1223-2009",
+      "version": "2009R1223",
+      "jurisdiction": "EU",
+      "authority": "European Parliament and Council",
+      "document": "Regulation (EC) No 1223/2009 on cosmetic products",
+      "status": "in_force",
+      "effective_from": "2013-07-11",
+      "effective_to": null,
+      "supersedes": null,
+      "source_url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32009R1223",
+      "source_hash": "",
+      "language": "en",
+      "retrieved_at": "2026-08-16",
+      "requirements": [
+        {
+          "requirement_id": "eu-cosmetics-notification",
+          "regulation_id": "eu-cosmetics-1223-2009",
+          "title": "Cosmetic products must be notified in CPNP before being placed on the EU market",
+          "requirement_type": "registration",
+          "product_scope": {"attr": "category", "in": ["cosmetics", "cosmetic", "personal_care"]},
+          "missing_if_unmet": "CPNP notification and Product Information File",
+          "default_status_if_unmet": "BLOCKED",
+          "satisfied_by": ["CPNP", "PIF", "EU-COSMETICS-DOSSIER"],
+          "actions": [
+            "Appoint an EU responsible person under Article 4",
+            "Compile the Product Information File",
+            "Submit CPNP notification before placing on the market",
+            "Ensure labelling meets Article 19"
+          ],
+          "evidence": [
+            {
+              "authority": "European Parliament and Council",
+              "document": "Regulation (EC) No 1223/2009",
+              "article": "Article 4; Article 13; Article 19",
+              "source_url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32009R1223",
+              "retrieved_at": "2026-08-16",
+              "excerpt": "Only cosmetic products for which a legal or natural person is designated within the Community as responsible person shall be placed on the market. The responsible person shall submit specified information through the Cosmetic Products Notification Portal before placing the product on the market.",
+              "language": "en",
+              "verification_level": "official_regulation"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "regulation_id": "us-fcc-part15",
+      "version": "47-CFR-15",
+      "jurisdiction": "US",
+      "authority": "Federal Communications Commission",
+      "document": "47 CFR Part 15 Radio Frequency Devices",
+      "status": "in_force",
+      "effective_from": "1989-01-01",
+      "effective_to": null,
+      "supersedes": null,
+      "source_url": "https://www.ecfr.gov/current/title-47/chapter-I/subchapter-A/part-15",
+      "source_hash": "",
+      "language": "en",
+      "retrieved_at": "2026-08-16",
+      "requirements": [
+        {
+          "requirement_id": "us-fcc-intentional-radiator",
+          "regulation_id": "us-fcc-part15",
+          "title": "Intentional radiators (Bluetooth/Wi-Fi) require FCC equipment authorization",
+          "requirement_type": "certification",
+          "product_scope": {"attr": "has_wireless", "eq": true},
+          "missing_if_unmet": "FCC ID / SDoC equipment authorization",
+          "default_status_if_unmet": "BLOCKED",
+          "satisfied_by": ["FCC", "FCC-ID", "FCC_ID", "SDOC"],
+          "actions": [
+            "Complete FCC equipment authorization for the radio module or host",
+            "Label the product with FCC ID or SDoC statement as applicable",
+            "Retain test reports for Part 15"
+          ],
+          "evidence": [
+            {
+              "authority": "Federal Communications Commission",
+              "document": "47 CFR Part 15",
+              "article": "§15.1; §15.201; §15.247",
+              "source_url": "https://www.ecfr.gov/current/title-47/chapter-I/subchapter-A/part-15",
+              "retrieved_at": "2026-08-16",
+              "excerpt": "Intentional radiators must be authorized under the certification or Supplier's Declaration of Conformity procedures as specified. Operation in the 2400-2483.5 MHz band is subject to §15.247 technical limits.",
+              "language": "en",
+              "verification_level": "official_regulation"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "regulation_id": "us-cpsc-consumer",
+      "version": "CPSA",
+      "jurisdiction": "US",
+      "authority": "U.S. Consumer Product Safety Commission",
+      "document": "Consumer Product Safety Act / general consumer product safety obligations",
+      "status": "in_force",
+      "effective_from": "1972-10-27",
+      "effective_to": null,
+      "supersedes": null,
+      "source_url": "https://www.cpsc.gov/Regulations-Laws--Standards/Statutes",
+      "source_hash": "",
+      "language": "en",
+      "retrieved_at": "2026-08-16",
+      "requirements": [
+        {
+          "requirement_id": "us-cpsc-general",
+          "regulation_id": "us-cpsc-consumer",
+          "title": "Consumer products must not present an unreasonable risk of injury; CPSC can recall",
+          "requirement_type": "safety",
+          "product_scope": {
+            "attr": "category",
+            "in": ["consumer_electronics", "electronics", "audio", "lighting", "cosmetics"]
+          },
+          "missing_if_unmet": "Safety assessment / test report retained for CPSC/Amazon requests",
+          "default_status_if_unmet": "WARNING",
+          "satisfied_by": ["UL", "ETL", "CPSC-TEST", "UL-62368", "UL-1598"],
+          "actions": [
+            "Retain safety test evidence from an accredited lab",
+            "Monitor CPSC recalls for the product category"
+          ],
+          "evidence": [
+            {
+              "authority": "U.S. Consumer Product Safety Commission",
+              "document": "Consumer Product Safety Act",
+              "article": "15 U.S.C. §2064 (substantial product hazard / recall)",
+              "source_url": "https://www.cpsc.gov/Regulations-Laws--Standards/Statutes",
+              "retrieved_at": "2026-08-16",
+              "excerpt": "Manufacturers, importers, distributors and retailers must report potentially hazardous products and may be required to recall products that present a substantial product hazard.",
+              "language": "en",
+              "verification_level": "official_regulation"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "regulation_id": "us-fda-cosmetics",
+      "version": "FDCA-MoCRA",
+      "jurisdiction": "US",
+      "authority": "U.S. Food and Drug Administration",
+      "document": "Federal Food, Drug, and Cosmetic Act; Modernization of Cosmetics Regulation Act (MoCRA)",
+      "status": "in_force",
+      "effective_from": "2022-12-29",
+      "effective_to": null,
+      "supersedes": null,
+      "source_url": "https://www.fda.gov/cosmetics/cosmetics-laws-regulations/modernization-cosmetics-regulation-act-2022-mocra",
+      "source_hash": "",
+      "language": "en",
+      "retrieved_at": "2026-08-16",
+      "requirements": [
+        {
+          "requirement_id": "us-fda-mocra",
+          "regulation_id": "us-fda-cosmetics",
+          "title": "Cosmetic facility registration, product listing, and labeling obligations under MoCRA",
+          "requirement_type": "registration",
+          "product_scope": {"attr": "category", "in": ["cosmetics", "cosmetic", "personal_care"]},
+          "missing_if_unmet": "FDA facility registration, product listing, and compliant English labeling",
+          "default_status_if_unmet": "WARNING",
+          "satisfied_by": ["FDA-MOCRA", "FDA-COSMETICS-LISTING", "FDA"],
+          "actions": [
+            "Register the facility and list the product with FDA as required by MoCRA",
+            "Ensure ingredient labeling and responsible person US contact",
+            "Do not make drug claims unless the product is also an OTC drug"
+          ],
+          "evidence": [
+            {
+              "authority": "U.S. Food and Drug Administration",
+              "document": "MoCRA / FDA cosmetics laws",
+              "article": "Facility registration and product listing provisions",
+              "source_url": "https://www.fda.gov/cosmetics/cosmetics-laws-regulations/modernization-cosmetics-regulation-act-2022-mocra",
+              "retrieved_at": "2026-08-16",
+              "excerpt": "MoCRA requires facility registration and product listing for cosmetics marketed in the United States, and expands FDA's authority over adverse event reporting and records.",
+              "language": "en",
+              "verification_level": "official_authority_guidance"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "regulation_id": "id-bpom-cosmetics-notification",
+      "version": "BPOM-NOTIFKOS",
+      "jurisdiction": "ID",
+      "authority": "Badan Pengawas Obat dan Makanan (BPOM)",
+      "document": "Indonesian cosmetic notification (Notifkos) before circulation",
+      "status": "in_force",
+      "effective_from": "2010-01-01",
+      "effective_to": null,
+      "supersedes": null,
+      "source_url": "https://notifkos.pom.go.id/",
+      "source_hash": "",
+      "language": "id",
+      "retrieved_at": "2026-08-16",
+      "requirements": [
+        {
+          "requirement_id": "id-bpom-nie",
+          "regulation_id": "id-bpom-cosmetics-notification",
+          "title": "Cosmetics may not be circulated in Indonesia without BPOM notification number (NIE)",
+          "requirement_type": "registration",
+          "product_scope": {"attr": "category", "in": ["cosmetics", "cosmetic", "personal_care"]},
+          "missing_if_unmet": "BPOM Notifkos notification number (NIE) held by a local Indonesian entity",
+          "default_status_if_unmet": "BLOCKED",
+          "satisfied_by": ["BPOM", "BPOM-NIE", "NIE", "NOTIFKOS"],
+          "actions": [
+            "Appoint a local Indonesian license holder (PT PMA or partner)",
+            "Compile PIF / DIP and formula against BPOM ingredient annexes",
+            "Submit notification via notifkos.pom.go.id",
+            "Put NIE and required Indonesian label text on packaging"
+          ],
+          "evidence": [
+            {
+              "authority": "BPOM",
+              "document": "Notifkos cosmetic notification portal / BPOM cosmetic circulation control",
+              "article": "Notification prior to circulation",
+              "source_url": "https://notifkos.pom.go.id/",
+              "retrieved_at": "2026-08-16",
+              "excerpt": "Cosmetic notification is processed through the official Notifkos system. A notification number is the legal evidence that the cosmetic product has been reviewed for circulation in Indonesia. Imported cosmetics require a local business entity.",
+              "language": "id",
+              "verification_level": "official_authority_guidance"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "regulation_id": "id-djid-radio",
+      "version": "SDPPI-DJID",
+      "jurisdiction": "ID",
+      "authority": "Direktorat Jenderal Sumber Daya dan Perangkat Pos dan Informatika (DJID/SDPPI)",
+      "document": "Certification of telecommunication tools and devices before import/distribution",
+      "status": "in_force",
+      "effective_from": "2018-01-01",
+      "effective_to": null,
+      "supersedes": null,
+      "source_url": "https://sertifikasi.postel.go.id/",
+      "source_hash": "",
+      "language": "id",
+      "retrieved_at": "2026-08-16",
+      "requirements": [
+        {
+          "requirement_id": "id-djid-cert",
+          "regulation_id": "id-djid-radio",
+          "title": "Wireless/telecom devices require DJID/SDPPI certification before Indonesian distribution",
+          "requirement_type": "certification",
+          "product_scope": {"attr": "has_wireless", "eq": true},
+          "missing_if_unmet": "DJID/SDPPI certificate (sertifikat posel)",
+          "default_status_if_unmet": "BLOCKED",
+          "satisfied_by": ["SDPPI", "DJID", "POSTEL", "KOMINFO-CERT"],
+          "actions": [
+            "Test the radio device at a designated lab",
+            "Apply for DJID/SDPPI certification via sertifikasi.postel.go.id",
+            "Affix the certification mark before import"
+          ],
+          "evidence": [
+            {
+              "authority": "DJID / Kominfo",
+              "document": "Official telecommunication equipment certification portal",
+              "article": "Certification prior to distribution",
+              "source_url": "https://sertifikasi.postel.go.id/",
+              "retrieved_at": "2026-08-16",
+              "excerpt": "Telecommunication tools and devices must obtain certification from the Indonesian authority (DJID/SDPPI) through the official certification portal before they can be legally distributed.",
+              "language": "id",
+              "verification_level": "official_authority_guidance"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "regulation_id": "id-sni-luminaires",
+      "version": "SNI-IEC-60598-1-2014",
+      "jurisdiction": "ID",
+      "authority": "Badan Standardisasi Nasional (BSN) / Kementerian Perindustrian",
+      "document": "SNI IEC 60598-1 Luminaires – Part 1: General requirements and tests (mandatory SNI scope for certain lamps/luminaires)",
+      "status": "in_force",
+      "effective_from": "2014-01-01",
+      "effective_to": null,
+      "supersedes": null,
+      "source_url": "https://bsn.go.id/",
+      "source_hash": "",
+      "language": "en",
+      "retrieved_at": "2026-08-16",
+      "requirements": [
+        {
+          "requirement_id": "id-sni-lighting",
+          "regulation_id": "id-sni-luminaires",
+          "title": "Certain lamps and luminaires circulating in Indonesia require SNI conformity",
+          "requirement_type": "certification",
+          "product_scope": {"attr": "category", "in": ["lighting"]},
+          "missing_if_unmet": "SNI certificate for luminaire / lamp",
+          "default_status_if_unmet": "WARNING",
+          "satisfied_by": ["SNI", "SNI-IEC-60598", "SNI-LED"],
+          "actions": [
+            "Confirm whether this exact lamp type is in the current mandatory SNI list",
+            "If in scope, obtain SNI certification via an LSPro",
+            "Expert review recommended because mandatory SNI lists change by Kemenperin decree"
+          ],
+          "evidence": [
+            {
+              "authority": "Badan Standardisasi Nasional",
+              "document": "SNI IEC 60598-1 and related mandatory SNI decrees for lighting",
+              "article": "General luminaire safety requirements",
+              "source_url": "https://bsn.go.id/",
+              "retrieved_at": "2026-08-16",
+              "excerpt": "Indonesia applies SNI standards, including IEC-based luminaire standards, to specified lighting products. Whether a given SKU is in the mandatory list depends on the current Ministry of Industry decree; absence of SNI is treated as WARNING plus expert review rather than a silent PASS.",
+              "language": "en",
+              "verification_level": "accredited_standard"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "regulation_id": "id-sni-luminaires-2026-update",
+      "version": "SNI-IEC-60598-1-2026-MONITOR",
+      "jurisdiction": "ID",
+      "authority": "Badan Standardisasi Nasional (BSN)",
+      "document": "Indexed 2026 monitoring event: luminaire SNI/IEC 60598 conformity evidence now required (demo change object)",
+      "status": "upcoming",
+      "effective_from": "2026-10-01",
+      "effective_to": null,
+      "supersedes": "id-sni-luminaires",
+      "source_url": "https://bsn.go.id/",
+      "source_hash": "",
+      "language": "en",
+      "retrieved_at": "2026-08-16",
+      "requirements": [
+        {
+          "requirement_id": "id-sni-lighting-strict",
+          "regulation_id": "id-sni-luminaires-2026-update",
+          "title": "Lighting SKUs must evidence SNI/IEC 60598 after the monitored update",
+          "requirement_type": "certification",
+          "product_scope": {"attr": "category", "in": ["lighting"]},
+          "missing_if_unmet": "Updated SNI certificate covering IEC 60598-1",
+          "default_status_if_unmet": "WARNING",
+          "satisfied_by": ["SNI-IEC-60598-2026"],
+          "actions": [
+            "Re-test or update SNI certificate to the monitored standard version",
+            "Do not ship additional lots until the certificate is current"
+          ],
+          "evidence": [
+            {
+              "authority": "Badan Standardisasi Nasional",
+              "document": "SNI luminaire standard family (IEC 60598)",
+              "article": "Monitoring / version change impact",
+              "source_url": "https://bsn.go.id/",
+              "retrieved_at": "2026-08-16",
+              "excerpt": "This record represents a versioned monitoring event against the SNI/IEC 60598 luminaire family. It is used to re-evaluate lighting SKUs. Existing SNI tokens that do not match the new version token are treated as stale.",
+              "language": "en",
+              "verification_level": "accredited_standard"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

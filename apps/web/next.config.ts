@@ -1,9 +1,11 @@
 import type { NextConfig } from "next";
+import path from "path";
 
 const nextConfig: NextConfig = {
-  async rewrites() {
-    return [{ source: "/backend/:path*", destination: "http://127.0.0.1:8000/:path*" }];
-  }
+  outputFileTracingRoot: path.join(__dirname),
+  outputFileTracingIncludes: {
+    "/api/**/*": ["./data/**/*"],
+  },
 };
 
 export default nextConfig;

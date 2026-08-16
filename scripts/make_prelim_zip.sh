@@ -13,7 +13,7 @@ cp "$ROOT/submission/"*.md "$ROOT/submission/"*.html "$STAGING/submission/"
 cp "$ROOT/docs/"*.md "$STAGING/docs/"
 cp "$ROOT/research/"*.md "$STAGING/research/"
 rsync -a --exclude '.venv' --exclude '.git' --exclude '__pycache__' --exclude '.pytest_cache' \
-  --exclude 'apps/web/node_modules' --exclude 'apps/web/.next' \
+  --exclude 'apps/web/node_modules' --exclude 'apps/web/.next' --exclude 'apps/web/.vercel' \
   "$ROOT/agents" "$ROOT/apps" "$ROOT/data" "$ROOT/product_graph" "$ROOT/regulation_graph" \
   "$ROOT/market_graph" "$ROOT/platform_graph" "$ROOT/verification" "$ROOT/monitoring" \
   "$ROOT/evidence" "$ROOT/storage" "$ROOT/skills" "$ROOT/tools" "$ROOT/tests" "$ROOT/benchmarks" \

@@ -19,9 +19,10 @@ AI+工业制造
 代码仓库
 https://github.com/WilliamK112/global-product-compliance
 
-Demo 链接
-https://github.com/WilliamK112/global-product-compliance
-（初赛不强制在线 Demo。本地：见 zip 内 README）
+Demo 链接 *
+https://cansell-kappa.vercel.app
+路演页：https://cansell-kappa.vercel.app/pitch.html
+仓库备份：https://github.com/WilliamK112/global-product-compliance
 
 作品附件（zip） *
 上传：

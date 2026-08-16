@@ -1,0 +1,7 @@
+CanSell is a product-aware market-access agent for Chinese exporters. Upload a catalog; for each SKU × country × platform × regulation it returns PASS / WARNING / BLOCKED / UNCERTAIN / EXPERT_REVIEW_REQUIRED, bound to official sources, articles, gaps, and next actions. A regulation change reports which SKUs moved — not that a new law exists.
+
+Exporters are not short of legal news. They cannot see which of their products a rule hits. Marketplace checkers, enterprise intelligence vendors, labs, and spreadsheets are fragmented. CanSell is not a law search chatbot. An LLM cannot assert alone.
+
+MVP is a credible subset: consumer electronics plus one cosmetics contrast SKU; EU, US, Indonesia; Alibaba.com and Amazon. Closed loop: CSV → product twin → official-rule match → evidence matrix → remediation → re-check.
+
+Not legal advice. MIT. Runnable API, UI, and tests are in the repository.

@@ -30,7 +30,7 @@ LAW × PRODUCT × MARKET × PLATFORM → IMPACT → ACTION
 ```
 
 第一用户：广东中小制造商的外贸/认证岗。付钱的是老板。  
-第一垂直：消费电子（蓝牙音箱 + LED）。化妆品精华液只作对照 SKU，不是第二垂直承诺。  
+第一垂直：消费电子（蓝牙音箱 + TWS + LED）。化妆品精华液只作对照 SKU，不是第二垂直承诺。  
 第一市场：中国产地 → EU / US / 印度尼西亚。  
 第一平台：Alibaba.com + Amazon。CSV 是通用入口。Alibaba 是理想第一生态，不是唯一客户。
 
@@ -200,10 +200,13 @@ MCP 可选，不是算出矩阵的必要条件。Python 引擎是 pytest 的源�
 
 打开 https://cansell-kappa.vercel.app
 
-1. 看三个广东 SKU 的放行矩阵（EU / US / ID × Alibaba.com / Amazon）。
+1. 看四个广东 SKU 的放行矩阵（EU / US / ID × Alibaba.com / Amazon）。
 2. 点印章：Why、条款、官方 URL、哈希、缺失项、整改。
-3. 点 **模拟法规变更**：印尼灯具 SNI 版本事件。3 个 SKU 里只有 LED 被打中，ID PASS → WARNING。
-4. 给 `BT-SPEAKER-01` 附上 `CE-RED,EU-RP,FCC,DJID`，点 **补证后再评估**。状态由引擎重算，不能写死。
+3. **下载模板 / 上传 CSV**，或点 **改首行 SKU 名再评估**（状态应不变）。
+4. 点 **模拟法规变更**：印尼灯具 SNI 版本事件。4 个 SKU 里只有 LED 被打中，ID PASS → WARNING。
+5. 给 `BT-SPEAKER-01` 附上 `CE-RED,EU-RP,FCC,DJID`，点 **补证后再评估**。状态由引擎重算，不能写死。
+
+操作说明见 [docs/RUNBOOK.md](docs/RUNBOOK.md)。
 
 ## 09 法规变更引擎
 
@@ -213,7 +216,7 @@ Regulation v1 → v2 → Diff → Changed requirement
 → Merchant alert
 ```
 
-不要告诉工厂「出了一部新法」。要告诉工厂：3 个 SKU 里哪 1 个被打中。
+不要告诉工厂「出了一部新法」。要告诉工厂：4 个 SKU 里哪 1 个被打中。
 
 ## 10 整改闭环
 
@@ -248,7 +251,7 @@ Alibaba 已解决信任标和部分证书上传；仍把目的国法的目录级
 
 ## 13 可信子集与来源
 
-3 类产品 × 3 个市场 × 2 个平台，每一条都有来源。强过假的 200 国。
+4 个 SKU × 3 个市场 × 2 个平台，每一条都有来源。强过假的 200 国。
 
 | id | authority | role | url |
 |---|---|---|---|
@@ -277,6 +280,7 @@ Alibaba 已解决信任标和部分证书上传；仍把目的国法的目录级
 python3.11 -m venv .venv
 source .venv/bin/activate
 pip install pytest pydantic fastapi python-multipart uvicorn
+python3 scripts/sync_web_data.py
 pytest -q
 uvicorn apps.api.main:app --port 8000
 ```

@@ -18,6 +18,9 @@
     h2 { font-family:Fraunces,serif; font-size:36px; margin:0 0 18px; }
     p, li { font-size:22px; line-height:1.5; color:#3a342c; max-width:18em; }
     code { font-family:"IBM Plex Mono",monospace; font-size:16px; color:#9d1c16; }
+    @media print {
+      .slide { min-height: 100vh; page-break-after: always; border-bottom: 0; }
+    }
   </style>
 </head>
 <body>
@@ -61,7 +64,7 @@
   </section>
   <section class="slide">
     <h2>Compliance Matrix</h2>
-    <p>蓝牙音箱：EU/US/ID 因缺 RED / FCC / DJID 为 BLOCKED。</p>
+    <p>蓝牙音箱 / TWS：EU/US/ID 因缺 RED / FCC / DJID 为 BLOCKED。</p>
     <p>LED：EU/US WARNING，印尼在现有 SNI 证据下 PASS。</p>
     <p>精华液：印尼无 BPOM Notifkos 为 BLOCKED。</p>
     <p>结果由属性计算，改 SKU 名不会变。</p>
@@ -69,7 +72,7 @@
   <section class="slide">
     <h2>法规变化影响</h2>
     <p>不要告诉工厂「出了一部新法」。</p>
-    <p>要告诉工厂：3 个 SKU 里有 1 个被打中。LED 印尼 PASS → WARNING。</p>
+    <p>要告诉工厂：4 个 SKU 里有 1 个被打中。LED 印尼 PASS → WARNING。</p>
   </section>
   <section class="slide">
     <h2>Agent 架构</h2>

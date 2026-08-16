@@ -10,6 +10,9 @@ cp "$ROOT/submission/01_作品名称.txt" "$STAGING/"
 cp "$ROOT/submission/02_作品简介_中文.txt" "$STAGING/cn/description_zh.txt"
 cp "$ROOT/submission/03_作品简介_英文.txt" "$STAGING/en/description_en.txt"
 cp "$ROOT/submission/"*.md "$ROOT/submission/"*.html "$STAGING/submission/"
+cp "$ROOT/submission/"*.txt "$STAGING/submission/" 2>/dev/null || true
+cp "$ROOT/submission/"*.pdf "$STAGING/submission/" 2>/dev/null || true
+cp "$ROOT/docs/RUNBOOK.md" "$STAGING/docs/"
 cp "$ROOT/docs/"*.md "$STAGING/docs/"
 cp "$ROOT/research/"*.md "$STAGING/research/"
 rsync -a --exclude '.venv' --exclude '.git' --exclude '__pycache__' --exclude '.pytest_cache' \

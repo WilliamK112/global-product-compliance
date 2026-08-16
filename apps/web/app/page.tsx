@@ -83,11 +83,65 @@ export default function Page() {
   const [certs, setCerts] = useState("CE-RED,EU-RP,FCC,DJID");
   const [error, setError] = useState("");
   const [busy, setBusy] = useState("");
+  const [csvText, setCsvText] = useState("");
+  const [source, setSource] = useState<"demo" | "upload">("demo");
 
   async function load() {
     const res = await fetch("/api/portfolio");
     if (!res.ok) throw new Error("portfolio failed");
     setData(await res.json());
+    const template = await fetch("/api/catalog");
+    setCsvText(await template.text());
+    setSource("demo");
+    setChange(null);
+  }
+
+  async function applyCsv(text: string, origin: "demo" | "upload") {
+    setBusy("catalog");
+    const res = await fetch("/api/catalog", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ csv_text: text }),
+    });
+    const payload = await res.json();
+    if (!res.ok) throw new Error(payload.error || "catalog failed");
+    setCsvText(text);
+    setSource(origin);
+    setData(payload);
+    setChange(null);
+    if (payload.products?.[0]?.sku) setSku(payload.products[0].sku);
+    setBusy("");
+  }
+
+  async function onUpload(event: React.ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0];
+    event.target.value = "";
+    if (!file) return;
+    try {
+      await applyCsv(await file.text(), "upload");
+    } catch (err) {
+      setError(String((err as Error).message || err));
+      setBusy("");
+    }
+  }
+
+  function renameFirstProduct(text: string) {
+    const lines = text.replaceAll("\r\n", "\n").split("\n");
+    const idx = lines.findIndex((line, index) => index > 0 && line.trim());
+    if (idx < 0) return text;
+    lines[idx] = lines[idx].replace(/^([^,]+),("[^"]*"|[^,]*)/, 'RENAMED-SKU,"Totally Different Name"');
+    return lines.join("\n");
+  }
+
+  async function proveRename() {
+    setBusy("catalog");
+    try {
+      await applyCsv(renameFirstProduct(csvText || (await (await fetch("/api/catalog")).text())), "upload");
+      setDocket({ kind: "recheck", certifications: ["rename-only"], moved: "SKU/name changed; statuses must stay the same if attributes are unchanged." });
+    } catch (err) {
+      setError(String((err as Error).message || err));
+      setBusy("");
+    }
   }
 
   useEffect(() => {
@@ -96,7 +150,11 @@ export default function Page() {
 
   async function runChange() {
     setBusy("change");
-    const res = await fetch("/api/changes");
+    const res = await fetch("/api/changes", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ csv_text: source === "upload" ? csvText : undefined }),
+    });
     setChange(await res.json());
     setBusy("");
   }
@@ -109,6 +167,7 @@ export default function Page() {
       body: JSON.stringify({
         sku,
         extra_certifications: certs.split(/[,;]/).map((item) => item.trim()).filter(Boolean),
+        csv_text: source === "upload" ? csvText : undefined,
       }),
     });
     const payload = await res.json();
@@ -170,7 +229,13 @@ export default function Page() {
           <div className="kpi"><span>Pass</span><strong style={{ color: "var(--pass)" }}>{tally.PASS || 0}</strong></div>
         </div>
         <div className="toolbar">
-          <button className="ghost" onClick={() => load()}>重载目录</button>
+          <button className="ghost" onClick={() => load()}>恢复演示目录</button>
+          <label className="field">
+            上传 CSV
+            <input type="file" accept=".csv,text/csv" onChange={onUpload} />
+          </label>
+          <a href="/api/catalog"><button className="ghost" type="button">下载模板</button></a>
+          <button className="ghost" onClick={proveRename} disabled={busy === "catalog"}>改首行 SKU 名再评估</button>
           <button onClick={runChange} disabled={busy === "change"}>{busy === "change" ? "研判中…" : "模拟法规变更"}</button>
           <label className="field">
             SKU
@@ -182,7 +247,7 @@ export default function Page() {
           </label>
           <button onClick={runRecheck} disabled={busy === "recheck"}>{busy === "recheck" ? "复检中…" : "补证后再评估"}</button>
         </div>
-        <p className="hint">给蓝牙音箱附上 CE-RED / EU-RP / FCC / DJID 再评估。改 SKU 名字不会变结果。</p>
+        <p className="hint">目录来源：{source === "demo" ? "演示 catalog" : "已上传 CSV"}。给蓝牙音箱附上 CE-RED / EU-RP / FCC / DJID 再评估。点「改首行 SKU 名再评估」证明结果跟名字无关。</p>
         <div className="layout">
           <section className="panel">
             <h2>01 / Compliance ledger</h2>

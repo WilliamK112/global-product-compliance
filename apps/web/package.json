@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev --port 3000",
     "build": "next build",
-    "start": "next start --port 3000"
+    "start": "next start --port 3000",
+    "dump-matrix": "tsx scripts/dump-matrix.ts"
   },
   "dependencies": {
     "next": "^15.4.6",
@@ -16,6 +17,7 @@
     "@types/node": "^24.2.1",
     "@types/react": "^19.1.9",
     "@types/react-dom": "^19.1.7",
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.2",
+    "tsx": "^4.20.3"
   }
 }

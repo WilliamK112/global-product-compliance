@@ -23,3 +23,6 @@ storage/*.sqlite
 
 # Contest upload binary (kept in ~/Downloads/GOAI-CanSell)
 *.zip
+
+# Optional network hash log (SSL may fail on some Python builds)
+data/regulations/source_hashes.json

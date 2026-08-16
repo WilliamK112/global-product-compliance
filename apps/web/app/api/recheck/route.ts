@@ -7,7 +7,7 @@ export const dynamic = "force-dynamic";
 export async function POST(request: Request) {
   const body = await request.json();
   try {
-    return NextResponse.json(recheck(body.sku, body.extra_certifications || []));
+    return NextResponse.json(recheck(body.sku, body.extra_certifications || [], body.csv_text || undefined));
   } catch (error) {
     return NextResponse.json({ error: String(error) }, { status: 404 });
   }

@@ -99,6 +99,9 @@ input {
   font-family: "IBM Plex Mono", monospace; font-size: 12px; border: 1px solid var(--rule);
   background: #fffdf6; color: var(--ink); padding: 8px 10px; min-width: 210px; text-transform: none; letter-spacing: 0;
 }
+input[type="file"] {
+  min-width: 180px; max-width: 220px; padding: 6px 8px;
+}
 .hint { padding: 8px 32px 16px 40px; color: var(--muted); font-size: 12px; }
 .layout { display: grid; grid-template-columns: 1.35fr .9fr; gap: 16px; padding: 0 32px 28px 40px; position: relative; z-index: 1; }
 .panel { background: #fffdf8; border: 1px solid var(--rule); min-height: 420px; }

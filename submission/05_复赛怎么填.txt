@@ -1,0 +1,40 @@
+# GOAI 复赛表单草稿（无界应用）
+
+复赛窗口：2026-08-25 至 2026-09-03。初赛结果约 2026-08-24。
+
+不要填成 Pruva。
+
+作品名称
+CanSell（能卖哪）：全球商品准入 Agent
+
+赛题
+赛题五：AI+工业制造
+
+代码仓库
+https://github.com/WilliamK112/global-product-compliance
+
+Demo 链接
+https://cansell-kappa.vercel.app
+路演：https://cansell-kappa.vercel.app/pitch.html
+
+Demo 视频
+按 submission/DEMO_SCRIPT.md 录 90–120 秒。
+成片建议放：~/Downloads/GOAI-CanSell/CanSell_demo.mp4
+（本仓库提供分镜 submission/DEMO_RECORDING.md；你本地按分镜录制口播。）
+
+Runbook
+docs/RUNBOOK.md
+
+方案 PPT/PDF
+submission/CanSell_GOAI_Pitch.pdf
+（由 apps/web/public/pitch.html 导出；也可直接打开路演页。）
+
+简介
+见 submission/02_作品简介_中文.txt
+
+复赛检查
+- [ ] 网站可上传 CSV
+- [ ] 改 SKU 名状态不变
+- [ ] 法规变更只打中 LED
+- [ ] pytest 全绿（含 TS/Python 对照）
+- [ ] 视频先说 Not legal advice

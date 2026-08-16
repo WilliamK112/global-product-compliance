@@ -26,7 +26,8 @@ https://cansell-kappa.vercel.app
 
 作品附件（zip） *
 上传：
-  CanSell_GOAI_Prelim.zip
+  ~/Downloads/GOAI-CanSell/CanSell_GOAI_Prelim.zip
+（交之前若刚改过代码，让助手再跑一次 scripts/make_prelim_zip.sh）
 
 所在高校/单位 *
 UWmadison

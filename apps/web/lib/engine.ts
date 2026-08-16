@@ -372,8 +372,8 @@ export function parseCatalog(text: string) {
   return runPortfolio(products);
 }
 
-export function recheck(sku: string, extra: string[]) {
-  const catalog = demoProducts().map((item) => ({ ...item, certifications: [...item.certifications] }));
+export function recheck(sku: string, extra: string[], csvText?: string) {
+  const catalog = (csvText ? parseCsv(csvText) : demoProducts()).map((item) => ({ ...item, certifications: [...item.certifications] }));
   const target = catalog.find((item) => item.sku === sku);
   if (!target) throw new Error(`Unknown SKU ${sku}`);
   const before = runPortfolio(catalog);
@@ -391,8 +391,8 @@ export function recheck(sku: string, extra: string[]) {
   return { sku, added_certifications: extra.map((item) => item.toUpperCase()), certifications: target.certifications, moved, portfolio: after };
 }
 
-export function changeDemo() {
-  const products = demoProducts();
+export function changeDemo(csvText?: string) {
+  const products = csvText ? parseCsv(csvText) : demoProducts();
   const before = runPortfolio(products, false);
   const after = runPortfolio(products, true);
   const impactAfter: Record<string, string> = {};

@@ -77,6 +77,15 @@ def test_llm_evidence_cannot_assert_alone():
     assert can_assert_without_expert(["official_regulation"]) is True
 
 
+def test_earbuds_follow_wireless_rules_not_sku_name():
+    data = run_portfolio()
+    cells = [item for item in data["matrix"] if item["sku"] == "TWS-EARBUD-01" and item["country"] == "EU"]
+    assert cells
+    assert all(item["status"] == "BLOCKED" for item in cells)
+    speaker = [item for item in data["matrix"] if item["sku"] == "BT-SPEAKER-01" and item["country"] == "EU"][0]
+    assert speaker["status"] == cells[0]["status"]
+
+
 def test_false_safe_wireless_us_without_fcc():
     product = ProductTwin(
         sku="RADIO-1",

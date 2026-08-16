@@ -2,44 +2,39 @@
 
 **Know where every product can sell — before regulations stop it.**
 
-The market-access layer for global commerce. Upload a catalog. For each SKU × country × platform the engine returns `PASS` / `WARNING` / `BLOCKED` / `UNCERTAIN` / `EXPERT_REVIEW_REQUIRED`, with official evidence, missing items, and a remediation list. A regulation change tells you **which SKUs moved**, not that “a new law exists.”
+GOAI 2026：**无界应用 / Boundless Agents / 赛题五 AI+工业制造**
 
-This is **not a legal opinion** and **not a regulation search engine**.
+上传目录。每个 SKU × 国家 × 平台 得到 `PASS` / `WARNING` / `BLOCKED` / `UNCERTAIN` / `EXPERT_REVIEW_REQUIRED`，带官方证据、缺失项和整改清单。法规变化只报告 **哪些 SKU 被打中**。
 
-GOAI 2026 track: **Boundless Agents / 无界应用 / AI+工业制造**.
+不是法律意见，不是法规搜索器。
 
-## Credible subset (on purpose)
-
-3 product types × 3 markets × 2 platforms, every requirement bound to a public official or platform URL:
-
-- Products: Bluetooth speaker, LED lamp, cosmetic serum (electronics primary; cosmetics is a contrast SKU)
-- Markets: EU, US, Indonesia
-- Platforms: Alibaba.com, Amazon
-
-No fake “200 countries.”
-
-## Run
+## Demo（一条命令）
 
 ```bash
-python3 -m pip install -e ".[dev]"
-python3 -m pytest
-python3 -m uvicorn apps.api.main:app --port 8000
+python3.11 -m venv .venv
+source .venv/bin/activate
+pip install pytest pydantic fastapi python-multipart uvicorn
+pytest -q
+uvicorn apps.api.main:app --port 8000
 ```
 
-```bash
-cd apps/web && npm install && npm run dev
-```
+打开 http://127.0.0.1:8000  
+路演页：http://127.0.0.1:8000/pitch
 
-Open http://localhost:3000 — the UI proxies `/backend/*` to the API.
+点击矩阵看证据。点 **Simulate regulation change** 看 LED 印尼 PASS → WARNING。给 `BT-SPEAKER-01` 附加 `CE-RED,EU-RP,FCC,DJID` 再 **Re-check**。
 
-Demo catalog: `data/products/demo_catalog.csv`.
+## 可信子集
 
-## Core calculation
+消费电子（蓝牙音箱、LED）+ 一条化妆品对照；EU / US / 印尼；Alibaba.com + Amazon。没有假的 200 国。
+
+## 计算
 
 `Product × Country × Platform × Regulation = Market Access State`
 
-Matching is deterministic on product attributes. Renaming a SKU cannot change the answer. An unknown category cannot PASS.
+匹配按产品属性，不按 SKU 名字。未知品类不能 PASS。
+
+仓库：https://github.com/WilliamK112/global-product-compliance
 
 ## License
 
-MIT. Regulation excerpts are cited for identification; retrieve full text from the official URL.
+MIT。法规摘录仅用于识别，全文以官方 URL 为准。

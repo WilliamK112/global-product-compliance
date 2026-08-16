@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <title>CanSell Pitch · GOAI Boundless Agents</title>
+  <style>
+    body { margin:0; font-family:"Noto Sans SC",sans-serif; background:#0f1419; color:#e8eef4; }
+    .slide { min-height:100vh; padding:64px 72px; border-bottom:1px solid #2a3542; }
+    h1 { font-size:42px; margin:0 0 12px; }
+    h2 { font-size:28px; margin:0 0 16px; }
+    p, li { font-size:20px; line-height:1.45; color:#c9d4e0; }
+    .tag { color:#f5c84c; }
+    code { color:#9ec1ff; }
+  </style>
+</head>
+<body>
+  <section class="slide">
+    <p class="tag">GOAI 2026 · 无界应用 · 赛题五 AI+工业制造</p>
+    <h1>CanSell · 能卖哪</h1>
+    <p>Know where every product can sell — before regulations stop it.</p>
+    <p>The market-access layer for global commerce.</p>
+  </section>
+  <section class="slide">
+    <h2>中国出口真正的问题</h2>
+    <p>一个广东工厂同时面对数十个市场、平台和法规。</p>
+    <p>他们不是不知道海外有法规，而是不知道这些法规会打到自己的哪些 SKU。</p>
+  </section>
+  <section class="slide">
+    <h2>现有工具为什么失败</h2>
+    <ul>
+      <li>Marketplace rules：只管自家上架</li>
+      <li>RegASK / Enhesa：企业级情报，不是中国工厂目录</li>
+      <li>检测机构：一次测一个型号</li>
+      <li>律师 / 规海星图：搜法条</li>
+      <li>Excel：法规一变全表失效</li>
+    </ul>
+  </section>
+  <section class="slide">
+    <h2>核心产品</h2>
+    <p><code>Product × Country × Platform × Regulation = Market Access State</code></p>
+    <p>PASS / WARNING / BLOCKED / UNCERTAIN / EXPERT REVIEW REQUIRED</p>
+    <p>不是 Yes / No，更不是聊天。</p>
+  </section>
+  <section class="slide">
+    <h2>Product Digital Twin</h2>
+    <p>SKU、品类、HS 候选、材料、无线、电池、认证、标签、产地。</p>
+    <p>图片线索只是候选，人工确认前不得当事实。</p>
+  </section>
+  <section class="slide">
+    <h2>Regulatory Graph</h2>
+    <p>官方 URL、条款、生效日、版本、哈希、摘录。</p>
+    <p>MVP 只覆盖可验证子集：EU / US / 印尼 × 消费电子 + 一条化妆品对照。</p>
+  </section>
+  <section class="slide">
+    <h2>Compliance Matrix</h2>
+    <p>蓝牙音箱：EU/US/ID 因缺 RED / FCC / DJID 为 BLOCKED。</p>
+    <p>LED：EU/US WARNING，印尼在现有 SNI 证据下 PASS。</p>
+    <p>精华液：印尼无 BPOM Notifkos 为 BLOCKED。</p>
+    <p>结果由属性计算，改 SKU 名不会变。</p>
+  </section>
+  <section class="slide">
+    <h2>法规变化影响</h2>
+    <p>不要告诉工厂「出了一部新法」。</p>
+    <p>要告诉工厂：3 个 SKU 里有 1 个被打中。LED 印尼 PASS → WARNING。</p>
+  </section>
+  <section class="slide">
+    <h2>Agent 架构</h2>
+    <p>Intake → Research → Match → Verify → Action → Re-check。</p>
+    <p>验证金字塔：官方法规 &gt; 主管机关指南 &gt; 平台规则 &gt; 标准 &gt; LLM &gt; 专家。</p>
+    <p>LLM 在最下层，不能单独主张。</p>
+  </section>
+  <section class="slide">
+    <h2>市场与竞品</h2>
+    <p>不是首创监管 AI。RegASK / Amazon 已经存在。</p>
+    <p>空白是：中国出口商目录 × 跨平台 × SKU 级影响 × 整改闭环。</p>
+    <p>付钱的是工厂老板，每天用的是外贸/认证岗。</p>
+  </section>
+  <section class="slide">
+    <h2>商业模式</h2>
+    <p>Free：1 SKU × 1 市场。</p>
+    <p>Pro：目录 + 监控。</p>
+    <p>Enterprise：API / PIM。</p>
+    <p>专家市场：检测、欧盟责任人、BPOM 持证方。不是律所。</p>
+  </section>
+  <section class="slide">
+    <h2>中国 → 全球基础设施</h2>
+    <p>Alibaba 是理想第一生态，不是唯一客户。</p>
+    <p>CSV 通用入口。不做假的 200 国覆盖。</p>
+    <p>GitHub：github.com/WilliamK112/global-product-compliance</p>
+  </section>
+</body>
+</html>

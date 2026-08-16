@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CanSell · 能卖哪</title>
+  <style>
+    :root { --bg:#0f1419; --panel:#171e26; --line:#2a3542; --text:#e8eef4; --muted:#93a1b0; --pass:#3dd68c; --warn:#f5c84c; --block:#ff6b6b; --unc:#8b9bb4; }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family:"IBM Plex Sans","Noto Sans SC",sans-serif; background:var(--bg); color:var(--text); }
+    .wrap { max-width:1200px; margin:0 auto; padding:28px 20px 72px; }
+    h1 { margin:0 0 6px; font-size:28px; }
+    .sub { color:var(--muted); max-width:760px; line-height:1.5; margin:0 0 14px; }
+    .banner { background:#3a2208; color:#ffd9a8; padding:10px 12px; border-radius:8px; margin-bottom:16px; font-size:13px; }
+    .kpi { display:grid; grid-template-columns:repeat(5,1fr); gap:8px; margin:14px 0; }
+    .kpi div, .card { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:14px; }
+    .kpi strong { display:block; font-size:22px; }
+    .muted { color:var(--muted); font-size:12px; line-height:1.45; }
+    .grid { display:grid; grid-template-columns:1.45fr 1fr; gap:14px; }
+    table { width:100%; border-collapse:collapse; font-size:13px; }
+    th, td { border-bottom:1px solid var(--line); padding:7px; text-align:left; vertical-align:top; }
+    button, .file { background:#2d6cdf; color:#fff; border:0; border-radius:8px; padding:8px 12px; cursor:pointer; font:inherit; }
+    button.secondary { background:#2a3542; }
+    .row { display:flex; gap:8px; flex-wrap:wrap; margin:12px 0; }
+    input[type=text] { background:#10161c; color:var(--text); border:1px solid var(--line); border-radius:8px; padding:8px; min-width:220px; }
+    .PASS { color:var(--pass); font-weight:700; cursor:pointer; }
+    .WARNING { color:var(--warn); font-weight:700; cursor:pointer; }
+    .BLOCKED { color:var(--block); font-weight:700; cursor:pointer; }
+    .UNCERTAIN { color:var(--unc); font-weight:700; cursor:pointer; }
+    a { color:#9ec1ff; }
+    .tabs { display:flex; gap:8px; margin-bottom:10px; }
+    .tabs span { font-size:12px; color:var(--muted); }
+    @media (max-width:900px) { .grid,.kpi { grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>CanSell · 能卖哪</h1>
+    <p class="sub">Know where every product can sell — before regulations stop it. Product × country × platform × regulation. 不是法律意见，也不是法规搜索。</p>
+    <div class="banner">自动研判必须绑定官方来源。LLM 不能单独作为证据。沉默 PASS 被禁止。赛题：无界应用 · AI+工业制造。</div>
+    <div class="kpi" id="kpi"></div>
+    <div class="row">
+      <button class="secondary" id="reload">Reload catalog</button>
+      <button id="change">Simulate regulation change</button>
+      <a href="/pitch"><button class="secondary" type="button">Pitch</button></a>
+    </div>
+    <div class="row">
+      <input id="sku" value="BT-SPEAKER-01" />
+      <input id="certs" value="CE-RED,EU-RP,FCC,DJID" />
+      <button id="recheck">Re-check after attaching evidence</button>
+    </div>
+    <p class="muted">整改闭环：给音箱补上 CE-RED / EU-RP / FCC / DJID 后再评估。状态必须由引擎重算，不能写死。</p>
+    <div class="grid">
+      <div class="card">
+        <h2>Compliance matrix</h2>
+        <p class="muted">点击单元格查看 Why / Article / Evidence / Missing / Action。</p>
+        <div id="matrix"></div>
+      </div>
+      <div class="card" id="detail">
+        <h2>Cell detail</h2>
+        <p class="muted">先点矩阵。</p>
+      </div>
+    </div>
+    <div class="card" style="margin-top:14px" id="actions-card">
+      <h2>Required actions</h2>
+      <div id="actions" class="muted">从矩阵聚合。</div>
+    </div>
+    <div class="card" style="margin-top:14px; display:none" id="change-card">
+      <h2>Regulation change impact</h2>
+      <div id="change-body"></div>
+    </div>
+  </div>
+  <script>
+    const SYMBOL = {PASS:"✓ PASS", WARNING:"⚠ WARNING", BLOCKED:"✕ BLOCKED", UNCERTAIN:"? UNCERTAIN", EXPERT_REVIEW_REQUIRED:"▣ EXPERT"};
+    const RANK = {PASS:0, UNCERTAIN:1, WARNING:2, EXPERT_REVIEW_REQUIRED:3, BLOCKED:4};
+    let DATA = null;
+
+    async function load() {
+      const res = await fetch("/portfolio");
+      DATA = await res.json();
+      render();
+    }
+
+    function render() {
+      const tally = {PASS:0, WARNING:0, BLOCKED:0, UNCERTAIN:0};
+      DATA.matrix.forEach(c => tally[c.status] = (tally[c.status]||0)+1);
+      document.getElementById("kpi").innerHTML = `
+        <div><span class="muted">SKUs</span><strong>${DATA.products.length}</strong></div>
+        <div><span class="muted">Cells</span><strong>${DATA.matrix.length}</strong></div>
+        <div><span class="muted">Blocked</span><strong class="BLOCKED">${tally.BLOCKED||0}</strong></div>
+        <div><span class="muted">Warning</span><strong class="WARNING">${tally.WARNING||0}</strong></div>
+        <div><span class="muted">Pass</span><strong class="PASS">${tally.PASS||0}</strong></div>`;
+      let html = `<table><thead><tr><th>Product</th>${DATA.countries.map(c=>`<th>${c}</th>`).join("")}</tr></thead><tbody>`;
+      DATA.products.forEach(p => {
+        html += `<tr><td>${p.name}<div class="muted">${p.sku} · ${p.category}<br/>certs: ${(p.certifications||[]).join(", ")||"—"}</div></td>`;
+        DATA.countries.forEach(country => {
+          const cells = DATA.matrix.filter(i => i.sku===p.sku && i.country===country);
+          html += `<td>` + cells.map(cell =>
+            `<div class="${cell.status}" data-sku="${cell.sku}" data-country="${cell.country}" data-platform="${cell.platform}">${cell.platform.replace(".com","")}: ${SYMBOL[cell.status]}</div>`
+          ).join("") + `</td>`;
+        });
+        html += `</tr>`;
+      });
+      html += `</tbody></table>`;
+      document.getElementById("matrix").innerHTML = html;
+      document.querySelectorAll("[data-sku]").forEach(el => el.onclick = () => showCell(el.dataset.sku, el.dataset.country, el.dataset.platform));
+      const steps = [];
+      (DATA.actions||[]).forEach(plan => {
+        plan.steps.slice(0,2).forEach(s => steps.push(`${plan.sku} × ${plan.country} × ${plan.platform}: ${s.action}`));
+      });
+      document.getElementById("actions").innerHTML = steps.slice(0,12).map(s=>`<div>${s}</div>`).join("") || "No open actions.";
+    }
+
+    function showCell(sku, country, platform) {
+      const cell = DATA.matrix.find(i => i.sku===sku && i.country===country && i.platform===platform);
+      if (!cell) return;
+      document.getElementById("detail").innerHTML = `
+        <h2>${sku} × ${country} × ${platform}</h2>
+        <p class="${cell.status}">${SYMBOL[cell.status]}</p>
+        <p><b>Why</b><br/>${cell.why}</p>
+        <p class="muted">confidence ${cell.confidence} · evidence ${cell.evidence_quality} · verified ${cell.last_verified}</p>
+        <p><b>Missing</b></p>
+        <ul>${(cell.missing_items||[]).map(i=>`<li>${i}</li>`).join("")||"<li>none</li>"}</ul>
+        <p><b>Required actions</b></p>
+        <ol>${(cell.required_actions||[]).map(i=>`<li>${i}</li>`).join("")}</ol>
+        ${(cell.findings||[]).map(f => `
+          <div style="margin-top:10px">
+            <b>${f.title}</b>
+            <div class="muted">${f.requirement_id} · ${f.status}</div>
+            ${(f.evidence||[]).map(ev => `<div class="muted">${ev.authority} · ${ev.document} · ${ev.article}<br/><a href="${ev.source_url}" target="_blank">${ev.source_url}</a><br/>${ev.excerpt}<br/>hash ${ev.hash.slice(0,12)}</div>`).join("")}
+          </div>`).join("")}`;
+    }
+
+    document.getElementById("reload").onclick = load;
+    document.getElementById("change").onclick = async () => {
+      const res = await fetch("/changes/demo");
+      const data = await res.json();
+      document.getElementById("change-card").style.display = "block";
+      const rows = Object.keys(data.impact.after).map(k =>
+        `<tr><td>${k}</td><td class="${data.impact.before[k]}">${data.impact.before[k]}</td><td class="${data.impact.after[k]}">${data.impact.after[k]}</td></tr>`
+      ).join("");
+      document.getElementById("change-body").innerHTML = `
+        <p>${data.impact.summary}</p>
+        <p>Affected SKUs: <b>${(data.impact.affected_skus||[]).join(", ") || "none"}</b> / ${DATA.products.length}</p>
+        <table><thead><tr><th>Cell</th><th>Before</th><th>After</th></tr></thead><tbody>${rows}</tbody></table>`;
+    };
+    document.getElementById("recheck").onclick = async () => {
+      const sku = document.getElementById("sku").value.trim();
+      const extra = document.getElementById("certs").value.split(/[,;]/).map(s=>s.trim()).filter(Boolean);
+      const res = await fetch("/recheck", {method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({sku, extra_certifications: extra})});
+      const data = await res.json();
+      DATA = data.portfolio;
+      render();
+      const moved = Object.entries(data.moved||{}).map(([k,v]) => `${k}: ${v.before} → ${v.after}`).join("<br/>") || "no status change";
+      document.getElementById("detail").innerHTML = `<h2>Re-check ${sku}</h2><p>Attached: ${data.certifications.join(", ")}</p><p>${moved}</p>`;
+    };
+    load();
+  </script>
+</body>
+</html>

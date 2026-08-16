@@ -1,13 +1,18 @@
 from __future__ import annotations
 
+from pathlib import Path
+
 from fastapi import FastAPI, File, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 from pydantic import BaseModel
 
 from agents.action import remediation_plan
-from agents.orchestrator import run_change_demo, run_portfolio
+from agents.orchestrator import recheck_sku, run_change_demo, run_portfolio
 from product_graph.intake import parse_catalog_csv
 from regulation_graph.assess import MarketAccessState
+
+STATIC = Path(__file__).resolve().parent / "static"
 
 app = FastAPI(
     title="CanSell Market Access API",
@@ -26,8 +31,20 @@ class CatalogPayload(BaseModel):
     csv_text: str | None = None
 
 
-def _states_from_matrix(matrix: list[dict]) -> list[MarketAccessState]:
-    return [MarketAccessState(**item) for item in matrix]
+class RecheckPayload(BaseModel):
+    sku: str
+    extra_certifications: list[str]
+
+
+@app.get("/")
+def demo_home():
+    return FileResponse(STATIC / "index.html")
+
+
+@app.get("/pitch")
+def pitch():
+    pitch = Path(__file__).resolve().parents[2] / "submission" / "PITCH.html"
+    return FileResponse(pitch)
 
 
 @app.get("/health")
@@ -63,6 +80,14 @@ def cell(sku: str, country: str, platform: str):
             state = MarketAccessState(**item)
             return {**item, "remediation": remediation_plan(state)}
     raise HTTPException(404, "Cell not found")
+
+
+@app.post("/recheck")
+def recheck(payload: RecheckPayload):
+    try:
+        return recheck_sku(payload.sku, payload.extra_certifications)
+    except KeyError as exc:
+        raise HTTPException(404, f"Unknown SKU {exc}") from exc
 
 
 @app.get("/changes/demo")

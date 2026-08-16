@@ -1,12 +1,12 @@
-TIME: 2026-08-16
-PHASE: Decision GO + MVP dual-track (Boundless Agents prelim due 23:59 CST)
-DONE: Official req review; GitHub/local audit; market/competitor/Alibaba research; vertical=consumer electronics; country set EU/US/ID; engine+tests+API+UI+submission pack
-IN PROGRESS: GitHub publish; portal form (needs human login); optional demo screenshots
-BLOCKERS: Official handbook PDF behind login; merchant APIs not assumed; no live paying customer
+TIME: 2026-08-16 17:20 CST
+PHASE: Prelim dual-track — form is human; product now one-command demo
+DONE: Official req; audits; GO decision; engine+tests; FastAPI matrix UI; re-check loop; pitch HTML; full submission docs; GitHub
+IN PROGRESS: User submitting Boundless Agents form (赛题五); T-shirt/address personal fields
+BLOCKERS: GOAI portal login is human; no public hosted demo URL
 MARKET CONFIDENCE %: 82
-PRODUCT MATURITY %: 45
-SUBMISSION READINESS %: 75 (pack in repo; portal upload is human)
+PRODUCT MATURITY %: 62
+SUBMISSION READINESS %: 88
 NEXT THREE ACTIONS:
-1. Push public GitHub and paste URL into GOAI form
-2. Paste SUBMISSION_DESCRIPTION_CN/EN + PPT outline into the portal before 23:59
-3. Run API+web and capture matrix + change-impact screenshots
+1. Upload CanSell_GOAI_Prelim.zip on the 无界应用 form
+2. Select 赛题五：AI+工业制造
+3. Fill recipient + size, submit (1/3)

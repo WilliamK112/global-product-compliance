@@ -1,1 +1,5 @@
-See `docs/LEGAL_AND_SAFETY.md`.
+# 安全与合规边界
+
+完整文本：`docs/LEGAL_AND_SAFETY.md`。
+
+本作品不是律师事务所、不是公告机构、不是海关归类裁定。输出区分为：已核验官方来源、自动解释、整改建议、需要专家复核。PASS 不是出货许可。False Safe Rate 是第一指标：未知品类必须 UNCERTAIN。商家目录默认本地处理。法规正文只引用摘录和官方链接，不镜像公报。

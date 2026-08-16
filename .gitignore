@@ -19,3 +19,6 @@ storage/*.sqlite
 # IDE
 .idea/
 .vscode/
+
+# Contest upload binary (kept in ~/Downloads/GOAI-CanSell)
+*.zip

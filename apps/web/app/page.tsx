@@ -146,7 +146,7 @@ export default function Page() {
         <div className="ribbon">LIVE ENGINE</div>
         <header className="mast">
           <div className="brand">
-            <div className="mark">放行</div>
+            <img className="mark" src="/brand/icon-fangxing.png" alt="放行" width={64} height={64} />
             <div>
               <div className="en">Market access passport</div>
               <h1>能卖哪 · CanSell</h1>

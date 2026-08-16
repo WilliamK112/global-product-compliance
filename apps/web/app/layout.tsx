@@ -4,6 +4,10 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "CanSell · 能卖哪",
   description: "Know where every product can sell — before regulations stop it.",
+  icons: {
+    icon: "/brand/favicon-32.png",
+    apple: "/brand/apple-touch.png",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

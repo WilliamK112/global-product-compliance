@@ -1,5 +1,9 @@
 # CanSell · 能卖哪
 
+<p align="center">
+  <img src="apps/web/public/brand/icon-fangxing.png" width="96" alt="放行" />
+</p>
+
 **Know where every product can sell — before regulations stop it.**
 
 The market-access layer for global commerce.

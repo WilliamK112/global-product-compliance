@@ -65,9 +65,8 @@ a { color: #8a2a1c; }
   padding: 28px 32px 18px 40px; border-bottom: 1px solid var(--rule);
 }
 .mark {
-  width: 54px; height: 54px; border: 2px solid var(--spine); color: var(--spine);
-  display: grid; place-items: center; font-family: Fraunces, serif; font-weight: 680;
-  transform: rotate(-8deg); letter-spacing: .04em; font-size: 13px; background: rgba(157,28,22,.06);
+  width: 64px; height: 64px; object-fit: contain; flex-shrink: 0;
+  filter: drop-shadow(0 4px 8px rgba(27,23,18,.12));
 }
 .brand { display: flex; gap: 16px; align-items: center; }
 .brand h1 { margin: 0; font-family: Fraunces, "Songti SC", serif; font-size: 34px; font-weight: 680; letter-spacing: -.02em; }

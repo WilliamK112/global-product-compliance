@@ -29,6 +29,12 @@ Regulatory intelligence tells you what changed. Global Product Compliance tells 
 - **仓库：** https://github.com/WilliamK112/global-product-compliance
 - **赛道：** GOAI 2026 无界应用 / Boundless Agents / 赛题五 AI+工业制造
 
+<p align="center">
+  <a href="https://cansell-kappa.vercel.app"><img src="docs/screenshots/live-matrix.png" alt="CanSell live matrix: 4 SKUs × EU/US/ID × Alibaba.com and Amazon" width="920" /></a>
+</p>
+
+当前演示：4 个广东 SKU × EU / US / ID × Alibaba.com / Amazon。点开印章看 Why、条款和官方 URL。
+
 ---
 
 ## 00 论旨
@@ -154,6 +160,21 @@ Already solved：买得起 RegASK/Enhesa 的企业监管团队；只做 Amazon �
 Open problem：同时在 Alibaba 和 Amazon 卖一批 SKU 的工厂，仍然很难看到「这次变更打中哪几个 SKU」并带官方证据和整改。
 
 相邻但不在上表展开：规海星图 / 商务部全球法规网（法搜）、欧税通（税/EPR）。见 landscape 文档。
+
+### Sources（竞品官方页）
+
+检索日 2026-08-16。不以 SEO 博客为主要依据。
+
+| 对象 | Official URL |
+|---|---|
+| RegASK | https://regask.com/ · https://regask.com/product/ |
+| Enhesa Product Intelligence | https://www.enhesa.com/product-intelligence-solution/ |
+| Amazon Manage Your Compliance | https://sell.amazon.com/blog/manage-your-compliance |
+| Alibaba.com Rules Center | https://rule.alibaba.com/ |
+| Shopify Managed Markets | https://www.shopify.com/international/managed |
+| Cortellis (Clarivate) | https://clarivate.com/life-sciences-healthcare/research-development/regulatory-compliance-intelligence/regulatory-intelligence-solutions/ |
+| IQVIA | https://www.iqvia.com/ |
+| SGS / TÜV / Intertek / UL | https://www.sgs.com/ · https://www.tuv.com/ · https://www.intertek.com/ · https://www.ul.com/ |
 
 ## Our Whitespace
 
@@ -417,51 +438,91 @@ MCP 可选，不是算出矩阵的必要条件。Python 引擎是 pytest 的源�
 
 ## Expected Capability vs Later Outlook
 
-三层分开写。**预期能力**是产品定义（引擎要长期回答什么）。**现在**只写代码和线上已有的。**后期**是展望，不是已上线。
+三层必须分开。**预期能力**是产品合同（引擎要永远回答什么）。**现在**只写代码和线上已有的。**后期**是展望，不是已上线。逐条对照见 [research/CAPABILITY_AND_OUTLOOK.md](research/CAPABILITY_AND_OUTLOOK.md)。
 
 ### 预期能力（产品合同）
 
-工厂目录进来之后，系统应能对每个 `SKU × 国家 × 平台` 给出可验证的市场准入状态，而不是一篇法规摘要。
+中国出口企业上传**商品目录**。系统对每个 `SKU × 国家 × 平台` 给出可验证的 **Market Access State**，不是一篇法规摘要。
 
-| 预期能力 | 含义 |
-|---|---|
-| Product Digital Twin | 目录行变成可匹配的商品属性（品类、产地、证书、电池/无线、成分等），不靠 SKU 名字写死 |
-| Cross-market screening | 同一目录打到多个目的国 |
-| Cross-platform overlay | 国家法之上再叠平台规则；合法入境 ≠ 每个平台都能上架 |
-| Evidence-backed state | `PASS / WARNING / BLOCKED / UNCERTAIN / EXPERT_REVIEW_REQUIRED`，绑定官方 URL、条款、哈希 |
-| Portfolio impact | 法规一变，只报告被打中的 SKU，不推送新闻 |
-| Remediation → re-check | 缺什么、下一步做什么、补证后再跑一遍 |
-| Honest coverage | 只主张已编码、有来源的子集；空匹配 = UNCERTAIN |
+```
+Product Portfolio × Country × Marketplace × Regulation
+        ↓
+Market Access State
+        ↓
+Impact（哪些 SKU）
+        ↓
+Remediation → Re-check
+```
 
-这十问（§01）就是预期能力清单。规模可以以后变大，合同不变。
+合同就是 §01 的十问。规模可变，问题不变：
 
-### 现在能演示的（Current MVP）
+| # | 预期能力 | 工厂应得到什么 |
+|---|---|---|
+| 01 | 准入状态 | `PASS / WARNING / BLOCKED / UNCERTAIN / EXPERT_REVIEW_REQUIRED`，不是 Yes/No |
+| 02 | 原因 | Why 绑定适用条款，不绑定 SKU 名字 |
+| 03 | 缺口 | 证书、标签、责任人、注册号、测试报告 |
+| 04 | 适用法 | 按商品属性匹配；空匹配 = UNCERTAIN，禁止沉默 PASS |
+| 05 | 平台叠加 | 国家法之上再叠每个市场的平台规则 |
+| 06 | 把握度 | confidence + evidence quality + last verified + authority |
+| 07 | 要补什么 | 动作来自未满足 requirement，不是聊天建议 |
+| 08 | 变化影响 | 不推新闻，只列出被打中的 SKU |
+| 09 | 下一步 | 整改清单；补证后再跑一遍 |
+| 10 | 证据纪律 | 官方 URL + 条款 + 哈希；LLM 不能单独主张 |
 
-- 线上台账：https://cansell-kappa.vercel.app
-- CSV 上传 / 模板 / 恢复演示目录 / 改 SKU 名再评估（属性不变则状态不变）
-- 4 个广东演示 SKU 的孪生；24 格矩阵（EU · US · ID × Alibaba.com · Amazon）
-- 编码法规子集（消费电子 + 一条化妆品对照）；种子在 `data/regulations/seed.json`、`data/platforms/seed.json`
-- 印章卷宗：Why、条款、官方 URL、摘录、哈希、缺失项、整改
-- 验证金字塔；禁止沉默 PASS
-- 模拟法规变更：印尼灯具 SNI 版本事件 → 4 个 SKU 里只有 LED 被打中
-- 补证后再评估（如 `CE-RED,EU-RP,FCC,DJID`）
-- Python pytest 为源；TypeScript 端口与状态对拍
+覆盖纪律也不变：只主张已编码、有来源的子集。未知品类不能 PASS。不声称支持所有国家。
+
+### 同一合同，现在 vs 后期
+
+| 能力 | 预期（始终） | 现在（Current MVP） | 后期（展望，未实现） |
+|---|---|---|---|
+| 目录入口 | 任意商家目录 | CSV 上传 / 模板 / 恢复演示 / 改 SKU 名再评估 | ERP / PIM / 设计伙伴脱敏 CSV |
+| 商品孪生 | 属性可匹配，不靠名字 | 4 个广东 SKU：品类、产地、证书、电池、无线、市电、成分 | 更完整的 HS、包装；图片须人工确认后才能当事实 |
+| 目的国 | 多市场同一目录 | EU · US · ID | 更多法域，仍是有来源的子集 |
+| 平台 | 同一目录打到每个 marketplace | Alibaba.com + Amazon = **24 格** | TikTok Shop、Temu、SHEIN、Shopify |
+| 法规图 | 官方 URL + 条款 + 哈希 | `data/regulations/seed.json` + `data/platforms/seed.json` | 检索官方 URL、再哈希；先加厚同一电子垂直 |
+| 变更影响 | 只报告被打中的 SKU | 一个编码事件：印尼灯具 SNI → 只有 LED 被打中 | 生产级监测 / 定时 diff，不是全库爬虫 |
+| 再评估 | 附证据后重算 | 给音箱附 `CE-RED,EU-RP,FCC,DJID` 后重算 | 实验室/专家回传后再检查 |
+| 卷宗 | 每格可打开 Why | 条款、官方 URL、摘录、哈希、缺失项、整改 | 专家工单与认证路由 |
+| API | 嵌进工厂作业系统 | 演示 `/api/portfolio\|catalog\|recheck\|changes` | 带鉴权的 SKU check / 国家包 / 监控事件 |
+| 商业 | 工厂为「哪些 SKU 要立刻动」付钱 | 线上产品是免费演示 | Free / Pro / Enterprise——**假设，不是价目表** |
+
+线上台账：https://cansell-kappa.vercel.app  
+引擎：Python pytest 为源；Vercel 上 TypeScript 端口对拍。
 
 现在**没有**：TikTok / Temu / SHEIN / Shopify 编码、ERP/PIM、全库爬虫、付费 API、专家市场、200 国、把 PASS 当放行。
 
-### 后期展望（Roadmap）
+### 后期展望（尚未实现）
 
-尚未实现。按远近排列，都可砍，不可写成当前功能。
+近 / 中 / 远都可以砍。不要把下面任何一行读成当前功能。与 [submission/ROADMAP.md](submission/ROADMAP.md) 对齐。
 
-| 阶段 | 展望 | 明确不做 |
-|---|---|---|
-| 近 | 更多官方 URL 检索与哈希；同一电子垂直加厚条款；设计伙伴脱敏目录；专家升级入口 | 假全球库 |
-| 中 | 平台适配 TikTok Shop、Temu、SHEIN、Shopify；生产级法规 diff 监测；ERP/PIM；对外 API | 逆向卖家后台 |
-| 远 | 认证伙伴网络（SGS/TÜV 等执行层）；Alibaba 悟空 Skill（若有可用 API）；Free/Pro/Enterprise 真收费 | 法律 Chatbot；PASS = 海关/平台放行 |
+**近（复赛窗口，至 2026-09-03）**
 
-商业档位（Free / Pro / Enterprise / API / expert marketplace）仍是**假设**，见 §12，不是已售套餐。
+- 同一电子垂直继续加厚官方条款与检索哈希
+- 设计伙伴脱敏目录（真实工厂 CSV，脱敏后进演示）
+- 专家升级入口：该找实验室 / 责任人 / 律师；产品仍不冒充他们
+- Demo 视频、runbook（参赛材料，不是引擎规模）
 
-Illustrative 规模（不是 benchmark）：3,000 SKU 目录 → 变更后只列出受影响 SKU。当前演示是 4 个 SKU。
+**中**
+
+- 平台适配：TikTok Shop、Temu、SHEIN、Shopify
+- 生产级法规 diff 监测（超出当前那一个演示对象）
+- ERP / PIM 接入；带鉴权与审计日志的对外 API
+
+**远**
+
+- 认证执行网络：SGS / TÜV / Intertek / UL 作为下游，不是对打竞品
+- Alibaba 悟空 Skill——**仅当存在可用官方 API**，不逆向卖家后台
+- 真收费：Free 1 SKU × 1 市场 / Pro 目录+监控 / Enterprise API（§12 仍是假设）
+
+**明确永远不做**
+
+- 假的 200 国覆盖
+- 法律 Chatbot / 法规搜索当主产品
+- 沉默 PASS
+- PASS = 海关或平台放行
+- 逆向 Alibaba / Amazon 卖家后台
+
+示意规模（*illustrative workflow*，**不是**已跑出的 benchmark）：3,000 SKU → 变更后只列出受影响 SKU。当前演示是 **4 个 SKU**。
 
 ## 08 产品怎么用
 
@@ -543,7 +604,9 @@ Alibaba 已解决信任标和部分证书上传；仍把目的国法的目录级
 
 ---
 
-## 本地运行（Python 引擎 / pytest）
+## Quick Start / Testing
+
+本地跑引擎与 pytest：
 
 ```bash
 python3.11 -m venv .venv

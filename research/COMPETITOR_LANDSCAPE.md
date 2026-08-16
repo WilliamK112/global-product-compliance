@@ -120,7 +120,7 @@ CanSell does **not** claim to have invented regulatory AI, SKU mapping, or chang
 | Strength | Duties, taxes, payments, shipping, Merchant-of-Record complexity reduction |
 | Weakness | Transaction layer ≠ product regulatory requirement mapping |
 | Our differentiation | Product-safety / cert evidence against destination law + marketplace policy. Shopify is roadmap. |
-| Official sources | https://www.shopify.com/international/managed · https://help.shopify.com/en/manual/international/managed-markets |
+| Official sources | https://www.shopify.com/international/managed |
 | Last verified | 2026-08-16 |
 
 ---

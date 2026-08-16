@@ -7,7 +7,7 @@ Do **not** claim we invented regulatory AI.
 | Product | Country | Regulation DB | SKU mapping | Change monitoring | Country coverage | Platform coverage | Action workflow | API | Pricing | Target customer | Verdict |
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | RegASK | SG/US | Yes, curated + experts | Label/product/market impact (enterprise) | Yes, near real-time | 160+ claimed | Not first-class Amazon+Alibaba+TikTok matrix | Yes, workflows + experts | Yes (Azure/A2A claimed) | Custom / **Not publicly disclosed** | Life science + consumer enterprise | **Partially solved** at enterprise |
-| Enhesa Product Intelligence | BE/global | Yes, 279+ jurisdictions claimed | Substance/product stewardship | Yes | Very wide | No marketplace graph | Stewardship, SDS | Enterprise | Custom | Fortune / product stewardship | **Partially solved** (chemicals/EHS) |
+| Enhesa Product Intelligence | BE/global | Yes, **400+** jurisdictions (official FAQ, 2026-08-16) | Substance/product stewardship | Yes | Very wide | No marketplace graph | Stewardship, SDS | Enterprise | Custom | Fortune / product stewardship | **Partially solved** (chemicals/EHS) |
 | IQVIA / Clarivate Cortellis | US/UK | Life-science | Drug/device RA | Yes | Wide (pharma) | No | RA workflows | Enterprise | **Not publicly disclosed** | Pharma RA | Different industry |
 | 医药魔方 / GBI | CN | China+global pharma intel | Pipeline/drug | News | Pharma | No | Research | Vendor | **Not publicly disclosed** | Pharma | Different industry |
 | 哪吒出海法律通 | CN? | Unclear | **Not verified** | Unknown | Unknown | Unknown | Unknown | Unknown | **Not publicly disclosed** | Unclear | **Insufficient public evidence** of SKU engine |
